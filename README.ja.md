@@ -1,7 +1,7 @@
 # oh-my-qwencode (OMQ)
 
 <p align="center">
-  <img src="https://yeachan-heo.github.io/oh-my-qwencode-website/omq-character-nobg.png" alt="oh-my-qwencode character" width="280">
+  
   <br>
   <em>あなたのqwenは一人じゃない。</em>
 </p>
@@ -11,7 +11,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 [![Discord](https://img.shields.io/discord/1452487457085063218?color=5865F2&logo=discord&logoColor=white&label=Discord)](https://discord.gg/PUwSMR9XNk)
 
-> **[Website](https://yeachan-heo.github.io/oh-my-qwencode-website/)** | **[Documentation](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** | **[CLI Reference](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** | **[Workflows](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** | **[OpenClaw 統合ガイド](./docs/openclaw-integration.ja.md)** | **[GitHub](https://github.com/Yeachan-Heo/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
+> **[Website](https://chrisxue90.github.io/oh-my-qwencode-website/ _(coming soon)_)** | **[Documentation](./docs/getting-started.html)** | **[CLI Reference](./docs/getting-started.html#cli-reference)** | **[Workflows](./docs/getting-started.html#workflows)** | **[OpenClaw 統合ガイド](./docs/openclaw-integration.ja.md)** | **[GitHub](https://github.com/chrisxue90/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
 
 [Qwen Code](https://github.com/openai/qwen)のためのマルチエージェントオーケストレーションレイヤー。
 
@@ -226,7 +226,7 @@ oh-my-qwencode/
 ## 開発
 
 ```bash
-git clone https://github.com/Yeachan-Heo/oh-my-qwencode.git
+git clone https://github.com/chrisxue90/oh-my-qwencode.git
 cd oh-my-qwencode
 npm install
 npm run build
@@ -235,11 +235,11 @@ npm test
 
 ## ドキュメント
 
-- **[完全なドキュメント](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** — 完全ガイド
-- **[CLIリファレンス](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** — すべての`omq`コマンド、フラグ、ツール
-- **[通知ガイド](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#notifications)** — Discord、Telegram、Slack、webhookの設定
-- **[推奨ワークフロー](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** — 一般的なタスクのための実戦で検証されたスキルチェーン
-- **[リリースノート](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#release-notes)** — 各バージョンの新機能
+- **[完全なドキュメント](./docs/getting-started.html)** — 完全ガイド
+- **[CLIリファレンス](./docs/getting-started.html#cli-reference)** — すべての`omq`コマンド、フラグ、ツール
+- **[通知ガイド](./docs/getting-started.html#notifications)** — Discord、Telegram、Slack、webhookの設定
+- **[推奨ワークフロー](./docs/getting-started.html#workflows)** — 一般的なタスクのための実戦で検証されたスキルチェーン
+- **[リリースノート](./docs/getting-started.html#release-notes)** — 各バージョンの新機能
 
 ## 備考
 
@@ -251,7 +251,7 @@ npm test
 
 ## 謝辞
 
-[oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode)にインスパイアされ、Qwen Code向けに適応されました。
+[oh-my-claudecode](https://github.com/chrisxue90/oh-my-claudecode)にインスパイアされ、Qwen Code向けに適応されました。
 
 ## ライセンス
 

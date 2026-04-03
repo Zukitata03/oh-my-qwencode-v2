@@ -1,7 +1,7 @@
 # oh-my-qwencode (OMQ)
 
 <p align="center">
-  <img src="https://yeachan-heo.github.io/oh-my-qwencode-website/omq-character-nobg.png" alt="oh-my-qwencode character" width="280">
+  
   <br>
   <em>Qwen Code của bạn không đơn độc.</em>
 </p>
@@ -11,7 +11,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 [![Discord](https://img.shields.io/discord/1452487457085063218?color=5865F2&logo=discord&logoColor=white&label=Discord)](https://discord.gg/PUwSMR9XNk)
 
-> **[Website](https://yeachan-heo.github.io/oh-my-qwencode-website/)** | **[Documentation](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** | **[CLI Reference](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** | **[Workflows](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** | **[Hướng dẫn tích hợp OpenClaw](./docs/openclaw-integration.vi.md)** | **[GitHub](https://github.com/Yeachan-Heo/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
+> **[Website](https://chrisxue90.github.io/oh-my-qwencode-website/ _(coming soon)_)** | **[Documentation](./docs/getting-started.html)** | **[CLI Reference](./docs/getting-started.html#cli-reference)** | **[Workflows](./docs/getting-started.html#workflows)** | **[Hướng dẫn tích hợp OpenClaw](./docs/openclaw-integration.vi.md)** | **[GitHub](https://github.com/chrisxue90/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
 
 Lớp điều phối đa tác nhân cho [Qwen Code](https://github.com/openai/qwen).
 
@@ -226,7 +226,7 @@ oh-my-qwencode/
 ## Phát triển
 
 ```bash
-git clone https://github.com/Yeachan-Heo/oh-my-qwencode.git
+git clone https://github.com/chrisxue90/oh-my-qwencode.git
 cd oh-my-qwencode
 npm install
 npm run build
@@ -235,11 +235,11 @@ npm test
 
 ## Tài liệu
 
-- **[Tài liệu đầy đủ](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** — Hướng dẫn hoàn chỉnh
-- **[Tham chiếu CLI](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** — Tất cả lệnh `omq`, cờ và công cụ
-- **[Hướng dẫn thông báo](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#notifications)** — Cài đặt Discord, Telegram, Slack và webhook
-- **[Quy trình công việc khuyến nghị](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** — Chuỗi skill đã thử nghiệm thực chiến cho các tác vụ phổ biến
-- **[Ghi chú phát hành](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#release-notes)** — Tính năng mới trong mỗi phiên bản
+- **[Tài liệu đầy đủ](./docs/getting-started.html)** — Hướng dẫn hoàn chỉnh
+- **[Tham chiếu CLI](./docs/getting-started.html#cli-reference)** — Tất cả lệnh `omq`, cờ và công cụ
+- **[Hướng dẫn thông báo](./docs/getting-started.html#notifications)** — Cài đặt Discord, Telegram, Slack và webhook
+- **[Quy trình công việc khuyến nghị](./docs/getting-started.html#workflows)** — Chuỗi skill đã thử nghiệm thực chiến cho các tác vụ phổ biến
+- **[Ghi chú phát hành](./docs/getting-started.html#release-notes)** — Tính năng mới trong mỗi phiên bản
 
 ## Ghi chú
 
@@ -251,7 +251,7 @@ npm test
 
 ## Lời cảm ơn
 
-Lấy cảm hứng từ [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode), được điều chỉnh cho Qwen Code.
+Lấy cảm hứng từ [oh-my-claudecode](https://github.com/chrisxue90/oh-my-claudecode), được điều chỉnh cho Qwen Code.
 
 ## Giấy phép
 

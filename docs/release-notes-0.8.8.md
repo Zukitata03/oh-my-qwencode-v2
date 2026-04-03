@@ -3,7 +3,7 @@
 Released: 2026-03-08
 
 5 non-merge commits from `main..dev`.
-Contributor: [@Yeachan-Heo](https://github.com/Yeachan-Heo).
+Contributor: [@chrisxue90](https://github.com/chrisxue90).
 
 ## Highlights
 
@@ -17,7 +17,7 @@ This release:
 - updates catalog manifests and generated catalog output for the new workflow
 - adds regression coverage for the anti-slop workflow contract
 
-PR: [#634](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/634)
+PR: [#634](https://github.com/chrisxue90/oh-my-qwencode/pull/634)
 
 ### Team reasoning effort can be allocated per teammate
 
@@ -29,7 +29,7 @@ This release:
 - adds regression coverage for runtime, tmux session, and model-contract paths
 - refreshes README and team skill guidance to reflect the new behavior
 
-PR: [#642](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/642)
+PR: [#642](https://github.com/chrisxue90/oh-my-qwencode/pull/642)
 
 ## Bug fixes and operational polish
 
@@ -37,13 +37,13 @@ PR: [#642](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/642)
 
 Notify-hook and keyword-detection logic were tightened so deep-interview auto-approval injection stays lock-protected and better covered by tests.
 
-PR: [#637](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/637)
+PR: [#637](https://github.com/chrisxue90/oh-my-qwencode/pull/637)
 
 ### Packaging and routing contract fixes
 
 This release also includes smaller contract corrections:
-- normalizes the published npm bin path and updates package-bin regression coverage ([#638](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/638))
-- explicitly reserves the worker role for team mode in prompt-guidance routing, with regression coverage via PR [#641](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/641)
+- normalizes the published npm bin path and updates package-bin regression coverage ([#638](https://github.com/chrisxue90/oh-my-qwencode/pull/638))
+- explicitly reserves the worker role for team mode in prompt-guidance routing, with regression coverage via PR [#641](https://github.com/chrisxue90/oh-my-qwencode/pull/641)
 
 ## Compare stats
 

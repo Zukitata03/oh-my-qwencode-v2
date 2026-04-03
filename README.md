@@ -1,8 +1,6 @@
 # oh-my-qwencode (OMQ)
 
 <p align="center">
-  <img src="https://yeachan-heo.github.io/oh-my-qwencode-website/omq-character-nobg.png" alt="oh-my-qwencode character" width="280">
-  <br>
   <em>Start Qwen Code stronger, then let OMQ add better prompts, workflows, and runtime help when the work grows.</em>
 </p>
 
@@ -11,7 +9,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 [![Discord](https://img.shields.io/discord/1452487457085063218?color=5865F2&logo=discord&logoColor=white&label=Discord)](https://discord.gg/PUwSMR9XNk)
 
-**Website:** https://yeachan-heo.github.io/oh-my-qwencode-website/  
+**Website:** https://chrisxue90.github.io/oh-my-qwencode-website/ _(coming soon)_
 **Docs:** [Getting Started](./docs/getting-started.html) · [Agents](./docs/agents.html) · [Skills](./docs/skills.html) · [Integrations](./docs/integrations.html) · [Demo](./DEMO.md) · [OpenClaw guide](./docs/openclaw-integration.md)
 
 OMQ is a workflow layer for [Qwen Code](https://github.com/openai/qwen).
@@ -206,12 +204,12 @@ If this happens, try:
 
 | Role | Name | GitHub |
 | --- | --- | --- |
-| Creator & Lead | Yeachan Heo | [@Yeachan-Heo](https://github.com/Yeachan-Heo) |
+| Creator & Lead | Chris Xue | [@chrisxue90](https://github.com/chrisxue90) |
 | Maintainer | HaD0Yun | [@HaD0Yun](https://github.com/HaD0Yun) |
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Yeachan-Heo/oh-my-qwencode&type=date&legend=top-left)](https://www.star-history.com/#Yeachan-Heo/oh-my-qwencode&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=chrisxue90/oh-my-qwencode&type=date&legend=top-left)](https://www.star-history.com/#chrisxue90/oh-my-qwencode&type=date&legend=top-left)
 
 ## License
 

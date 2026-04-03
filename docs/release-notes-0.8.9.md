@@ -3,7 +3,7 @@
 Released: 2026-03-08
 
 2 non-merge commits from `v0.8.8..dev`.
-Contributor: [@Yeachan-Heo](https://github.com/Yeachan-Heo).
+Contributor: [@chrisxue90](https://github.com/chrisxue90).
 
 ## Highlights
 
@@ -17,7 +17,7 @@ This release:
 - keeps role-based default reasoning allocation active unless an explicit launch override is present
 - verifies the live worker launch path with runtime, tmux-session, and worker-bootstrap coverage
 
-PR: [#643](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/643)
+PR: [#643](https://github.com/chrisxue90/oh-my-qwencode/pull/643)
 
 ### Scale-up task bootstrap now preserves canonical task identity
 

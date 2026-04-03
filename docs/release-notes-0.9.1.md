@@ -9,7 +9,7 @@ Patch hotfix release built from `main` to clear the red `v0.9.0` release state.
 `0.9.1` is the clean superseding release for the Spark Initiative line.
 
 - `v0.9.0` remains historically red.
-- `v0.9.1` carries the packed-install smoke hydration fix merged on `dev` in PR [#806](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/806).
+- `v0.9.1` carries the packed-install smoke hydration fix merged on `dev` in PR [#806](https://github.com/chrisxue90/oh-my-qwencode/pull/806).
 - No new feature scope is introduced beyond the release hotfix path and version/metadata updates required for the superseding release.
 
 ## Included hotfix
@@ -24,7 +24,7 @@ Included changes:
 
 Source history:
 - hotfix commit: `d86165d` — `fix(release): localize smoke hydration assets`
-- merged on `dev` via PR [#806](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/806)
+- merged on `dev` via PR [#806](https://github.com/chrisxue90/oh-my-qwencode/pull/806)
 
 ## Release positioning
 

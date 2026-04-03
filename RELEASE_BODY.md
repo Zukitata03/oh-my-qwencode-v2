@@ -36,6 +36,6 @@
 
 ## Contributors
 
-- [@Yeachan-Heo](https://github.com/Yeachan-Heo) (Bellman)
+- [@chrisxue90](https://github.com/chrisxue90) (Bellman)
 
-**Full Changelog**: [`v0.11.9...v0.11.10`](https://github.com/Yeachan-Heo/oh-my-qwencode/compare/v0.11.9...v0.11.10)
+**Full Changelog**: [`v0.11.9...v0.11.10`](https://github.com/chrisxue90/oh-my-qwencode/compare/v0.11.9...v0.11.10)

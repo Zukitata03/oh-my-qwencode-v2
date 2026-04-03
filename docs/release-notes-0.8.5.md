@@ -3,7 +3,7 @@
 Released: 2026-03-06
 
 7 non-merge commits from `v0.8.4..dev`.
-Contributors: [@Yeachan-Heo](https://github.com/Yeachan-Heo), [@HaD0Yun](https://github.com/HaD0Yun), [@sjals93](https://github.com/sjals93).
+Contributors: [@chrisxue90](https://github.com/chrisxue90), [@HaD0Yun](https://github.com/HaD0Yun), [@sjals93](https://github.com/sjals93).
 
 ## Highlights
 
@@ -23,7 +23,7 @@ Representative routing:
 - `executor` / `build-fixer` / `test-engineer` -> `deep-worker`
 - `explore` / `writer` -> `fast-lane`
 
-PRs: [#588](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/588), [#592](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/592) ([@HaD0Yun](https://github.com/HaD0Yun))
+PRs: [#588](https://github.com/chrisxue90/oh-my-qwencode/pull/588), [#592](https://github.com/chrisxue90/oh-my-qwencode/pull/592) ([@HaD0Yun](https://github.com/HaD0Yun))
 
 ## Bug fixes
 
@@ -33,8 +33,8 @@ PRs: [#588](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/588), [#592](http
 
 Fix: convert the resolved path to a `file://` URL via `url.pathToFileURL()` before dynamic import.
 
-PR: [#589](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/589) ([@sjals93](https://github.com/sjals93))
-Fixes: [#557](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/557)
+PR: [#589](https://github.com/chrisxue90/oh-my-qwencode/pull/589) ([@sjals93](https://github.com/sjals93))
+Fixes: [#557](https://github.com/chrisxue90/oh-my-qwencode/issues/557)
 
 ### tmux capture-pane returns empty output
 
@@ -42,8 +42,8 @@ Fixes: [#557](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/557)
 
 Fix: use `-S -<N>` (negative start line offset) which is the correct tmux API for capturing the last N lines.
 
-PR: [#593](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/593)
-Fixes: [#591](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/591)
+PR: [#593](https://github.com/chrisxue90/oh-my-qwencode/pull/593)
+Fixes: [#591](https://github.com/chrisxue90/oh-my-qwencode/issues/591)
 
 ### Legacy model alias leakage
 
@@ -51,11 +51,11 @@ Fixes: [#591](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/591)
 
 Fix: scrubbed all legacy alias references from prompts and `definitions.ts` metadata.
 
-Part of PR: [#592](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/592) ([@HaD0Yun](https://github.com/HaD0Yun))
+Part of PR: [#592](https://github.com/chrisxue90/oh-my-qwencode/pull/592) ([@HaD0Yun](https://github.com/HaD0Yun))
 
 ## Other changes
 
-- Added Maintainers section to README ([@Yeachan-Heo](https://github.com/Yeachan-Heo), [@HaD0Yun](https://github.com/HaD0Yun))
+- Added Maintainers section to README ([@chrisxue90](https://github.com/chrisxue90), [@HaD0Yun](https://github.com/HaD0Yun))
 - Added benchmark comparison screenshot to docs (`docs/benchmarks/`)
 
 ## Full commit log (v0.8.4..v0.8.5)

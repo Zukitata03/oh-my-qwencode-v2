@@ -1,7 +1,7 @@
 # oh-my-qwencode (OMQ)
 
 <p align="center">
-  <img src="https://yeachan-heo.github.io/oh-my-qwencode-website/omq-character-nobg.png" alt="oh-my-qwencode character" width="280">
+  
   <br>
   <em>Seu qwen não está sozinho.</em>
 </p>
@@ -10,7 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 
-> **[Website](https://yeachan-heo.github.io/oh-my-qwencode-website/)** | **[Documentation](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** | **[CLI Reference](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** | **[Workflows](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** | **[Guia de integração OpenClaw](./docs/openclaw-integration.pt.md)** | **[GitHub](https://github.com/Yeachan-Heo/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
+> **[Website](https://chrisxue90.github.io/oh-my-qwencode-website/ _(coming soon)_)** | **[Documentation](./docs/getting-started.html)** | **[CLI Reference](./docs/getting-started.html#cli-reference)** | **[Workflows](./docs/getting-started.html#workflows)** | **[Guia de integração OpenClaw](./docs/openclaw-integration.pt.md)** | **[GitHub](https://github.com/chrisxue90/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
 
 Camada de orquestração multiagente para [Qwen Code](https://github.com/openai/qwen).
 
@@ -225,7 +225,7 @@ oh-my-qwencode/
 ## Desenvolvimento
 
 ```bash
-git clone https://github.com/Yeachan-Heo/oh-my-qwencode.git
+git clone https://github.com/chrisxue90/oh-my-qwencode.git
 cd oh-my-qwencode
 npm install
 npm run build
@@ -234,11 +234,11 @@ npm test
 
 ## Documentação
 
-- **[Documentação completa](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** — Guia completo
-- **[Referência CLI](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** — Todos os comandos `omq`, flags e ferramentas
-- **[Guia de notificações](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#notifications)** — Configuração de Discord, Telegram, Slack e webhooks
-- **[Fluxos de trabalho recomendados](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** — Cadeias de skills testadas em batalha para tarefas comuns
-- **[Notas de versão](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#release-notes)** — Novidades em cada versão
+- **[Documentação completa](./docs/getting-started.html)** — Guia completo
+- **[Referência CLI](./docs/getting-started.html#cli-reference)** — Todos os comandos `omq`, flags e ferramentas
+- **[Guia de notificações](./docs/getting-started.html#notifications)** — Configuração de Discord, Telegram, Slack e webhooks
+- **[Fluxos de trabalho recomendados](./docs/getting-started.html#workflows)** — Cadeias de skills testadas em batalha para tarefas comuns
+- **[Notas de versão](./docs/getting-started.html#release-notes)** — Novidades em cada versão
 
 ## Notas
 
@@ -250,7 +250,7 @@ npm test
 
 ## Agradecimentos
 
-Inspirado em [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode), adaptado para Qwen Code.
+Inspirado em [oh-my-claudecode](https://github.com/chrisxue90/oh-my-claudecode), adaptado para Qwen Code.
 
 ## Licença
 

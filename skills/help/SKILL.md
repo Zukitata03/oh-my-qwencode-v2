@@ -192,8 +192,8 @@ Tip: Run /omq-setup to configure OMQ properly.
 
 ## Need More Help?
 
-- **README**: https://github.com/Yeachan-Heo/oh-my-qwencode
-- **Issues**: https://github.com/Yeachan-Heo/oh-my-qwencode/issues
+- **README**: https://github.com/chrisxue90/oh-my-qwencode
+- **Issues**: https://github.com/chrisxue90/oh-my-qwencode/issues
 
 ---
 

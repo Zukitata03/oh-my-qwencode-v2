@@ -1,7 +1,7 @@
 # oh-my-qwencode v0.9.0
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Yeachan-Heo/oh-my-qwencode/v0.9.0/docs/shared/omq-character-spark-initiative.jpg" alt="OMQ character sparked for the Spark Initiative" width="720">
+  <img src="https://raw.githubusercontent.com/chrisxue90/oh-my-qwencode/v0.9.0/docs/shared/omq-character-spark-initiative.jpg" alt="OMQ character sparked for the Spark Initiative" width="720">
 </p>
 
 `0.9.0` is the Spark Initiative release: OMQ now has a stronger native fast path for repository discovery, shell-native inspection, and cross-platform native distribution.
@@ -83,22 +83,22 @@ Validated locally on `dev` before tagging:
 
 ## Notable PRs
 
-- [#782](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/782) — explore routes qualifying read-only shell tasks via sparkshell
-- [#784](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/784) — cross-platform native publishing and release-pipeline follow-through
-- [#785](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/785) — team runtime lifecycle and cleanup hardening
-- [#786](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/786) — nested help routing cleanup
-- [#787](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/787) — centralized OMQ default model resolution
-- [#788](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/788) — HUD branch/config loading hardening
-- [#789](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/789) — distribute generated aspect tasks across workers
-- [#793](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/793) — Windows Qwen Code command shim probing fix
-- [#794](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/794) — merge `experimental/dev` into `dev`
-- [#805](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/805) — keep workers running after mailbox replies
+- [#782](https://github.com/chrisxue90/oh-my-qwencode/pull/782) — explore routes qualifying read-only shell tasks via sparkshell
+- [#784](https://github.com/chrisxue90/oh-my-qwencode/pull/784) — cross-platform native publishing and release-pipeline follow-through
+- [#785](https://github.com/chrisxue90/oh-my-qwencode/pull/785) — team runtime lifecycle and cleanup hardening
+- [#786](https://github.com/chrisxue90/oh-my-qwencode/pull/786) — nested help routing cleanup
+- [#787](https://github.com/chrisxue90/oh-my-qwencode/pull/787) — centralized OMQ default model resolution
+- [#788](https://github.com/chrisxue90/oh-my-qwencode/pull/788) — HUD branch/config loading hardening
+- [#789](https://github.com/chrisxue90/oh-my-qwencode/pull/789) — distribute generated aspect tasks across workers
+- [#793](https://github.com/chrisxue90/oh-my-qwencode/pull/793) — Windows Qwen Code command shim probing fix
+- [#794](https://github.com/chrisxue90/oh-my-qwencode/pull/794) — merge `experimental/dev` into `dev`
+- [#805](https://github.com/chrisxue90/oh-my-qwencode/pull/805) — keep workers running after mailbox replies
 
 ## Related issues
 
-- [#781](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/781) — sparkshell summary reasoning hardening
-- [#744](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/744) — lifecycle profile persistence
-- [#745](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/745) — cleanup policy hardening
-- [#746](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/746) — governance split follow-through
-- [#741](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/741) — linked Ralph/team runtime follow-up
-- [#732](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/732) — related team lifecycle follow-up
+- [#781](https://github.com/chrisxue90/oh-my-qwencode/pull/781) — sparkshell summary reasoning hardening
+- [#744](https://github.com/chrisxue90/oh-my-qwencode/issues/744) — lifecycle profile persistence
+- [#745](https://github.com/chrisxue90/oh-my-qwencode/issues/745) — cleanup policy hardening
+- [#746](https://github.com/chrisxue90/oh-my-qwencode/issues/746) — governance split follow-through
+- [#741](https://github.com/chrisxue90/oh-my-qwencode/issues/741) — linked Ralph/team runtime follow-up
+- [#732](https://github.com/chrisxue90/oh-my-qwencode/issues/732) — related team lifecycle follow-up

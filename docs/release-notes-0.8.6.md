@@ -3,7 +3,7 @@
 Released: 2026-03-07
 
 4 non-merge commits from `main..dev`.
-Contributor: [@Yeachan-Heo](https://github.com/Yeachan-Heo).
+Contributor: [@chrisxue90](https://github.com/chrisxue90).
 
 ## Highlights
 
@@ -19,13 +19,13 @@ This release adds:
 - runtime emission of `worker_state_changed` while preserving legacy `worker_idle` compatibility
 - stronger visibility into notify-fallback watcher dispatch/drain progress and deferred leader state
 
-PR: [#609](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/609)
+PR: [#609](https://github.com/chrisxue90/oh-my-qwencode/pull/609)
 
 ### GPT-5.4 prompt-guidance rollout and expansion
 
 OMQ's prompt and workflow surfaces were updated in two passes to better reflect OpenAI's GPT-5.4 prompt-guidance patterns.
 
-Core-surface pass ([#611](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/611), addresses [#608](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/608)):
+Core-surface pass ([#611](https://github.com/chrisxue90/oh-my-qwencode/pull/611), addresses [#608](https://github.com/chrisxue90/oh-my-qwencode/issues/608)):
 - root `AGENTS.md`
 - `templates/AGENTS.md`
 - `prompts/executor.md`
@@ -34,7 +34,7 @@ Core-surface pass ([#611](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/611
 - generated `developer_instructions` text in `src/config/generator.ts`
 - focused regression coverage for prompt-contract expectations
 
-Expansion pass ([#612](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/612), follow-up to [#611](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/611)):
+Expansion pass ([#612](https://github.com/chrisxue90/oh-my-qwencode/pull/612), follow-up to [#611](https://github.com/chrisxue90/oh-my-qwencode/pull/611)):
 - the broader agent prompt catalog (`analyst`, `architect`, `debugger`, `researcher`, `security-reviewer`, `writer`, and many more)
 - execution-heavy skills including `analyze`, `autopilot`, `build-fix`, `code-review`, `plan`, `ralph`, `ralplan`, `security-review`, `team`, and `ultraqa`
 - additional regression coverage for prompt catalogs, scenario examples, wave-two guidance, and skill guidance contracts
@@ -54,7 +54,7 @@ A post-merge follow-up restored the intended public export surface for the `team
 
 Fix: remove the accidental `teamEventLogPath` re-export so the strict `team-ops` module contract test remains stable.
 
-PR: [#610](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/610)
+PR: [#610](https://github.com/chrisxue90/oh-my-qwencode/pull/610)
 
 ## Compare stats
 

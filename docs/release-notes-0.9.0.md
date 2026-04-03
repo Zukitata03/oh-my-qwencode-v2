@@ -5,7 +5,7 @@ Drafted: 2026-03-12
 Pre-release draft based on unreleased `dev` changes since `v0.8.15`.
 
 55 non-merge commits from `v0.8.15..dev`.
-Contributors: Yeachan-Heo, Bellman, 2233admin, Seunghwan Eom, hoky1227.
+Contributors: chrisxue90, Bellman, 2233admin, Seunghwan Eom, hoky1227.
 
 ## Highlights
 
@@ -106,22 +106,22 @@ omq setup --force --scope project
 
 ## Merged PRs in the release window
 
-- [#782](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/782) — explore routes qualifying read-only shell tasks via sparkshell
-- [#784](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/784) — cross-platform native publishing and release-pipeline follow-through
-- [#785](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/785) — team runtime lifecycle and cleanup hardening
-- [#786](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/786) — nested help routing cleanup
-- [#787](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/787) — centralized OMQ default model resolution
-- [#788](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/788) — HUD branch/config loading hardening
-- [#789](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/789) — distribute generated aspect tasks across workers
-- [#793](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/793) — Windows Qwen Code command shim probing fix
-- [#794](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/794) — merge `experimental/dev` into `dev`
-- [#805](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/805) — keep workers running after mailbox replies
+- [#782](https://github.com/chrisxue90/oh-my-qwencode/pull/782) — explore routes qualifying read-only shell tasks via sparkshell
+- [#784](https://github.com/chrisxue90/oh-my-qwencode/pull/784) — cross-platform native publishing and release-pipeline follow-through
+- [#785](https://github.com/chrisxue90/oh-my-qwencode/pull/785) — team runtime lifecycle and cleanup hardening
+- [#786](https://github.com/chrisxue90/oh-my-qwencode/pull/786) — nested help routing cleanup
+- [#787](https://github.com/chrisxue90/oh-my-qwencode/pull/787) — centralized OMQ default model resolution
+- [#788](https://github.com/chrisxue90/oh-my-qwencode/pull/788) — HUD branch/config loading hardening
+- [#789](https://github.com/chrisxue90/oh-my-qwencode/pull/789) — distribute generated aspect tasks across workers
+- [#793](https://github.com/chrisxue90/oh-my-qwencode/pull/793) — Windows Qwen Code command shim probing fix
+- [#794](https://github.com/chrisxue90/oh-my-qwencode/pull/794) — merge `experimental/dev` into `dev`
+- [#805](https://github.com/chrisxue90/oh-my-qwencode/pull/805) — keep workers running after mailbox replies
 
 ## Related issues highlighted in this release
 
-- [#781](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/781) — force low reasoning for sparkshell summaries
-- [#744](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/744) — persist lifecycle profiles for linked Ralph vs default team runs
-- [#745](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/745) — team cleanup policy hardening
-- [#746](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/746) — team policy/governance split follow-through
-- [#741](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/741) — release-readiness / linked team-Ralph runtime follow-up
-- [#732](https://github.com/Yeachan-Heo/oh-my-qwencode/issues/732) — related team stall/lifecycle cleanup follow-up
+- [#781](https://github.com/chrisxue90/oh-my-qwencode/pull/781) — force low reasoning for sparkshell summaries
+- [#744](https://github.com/chrisxue90/oh-my-qwencode/issues/744) — persist lifecycle profiles for linked Ralph vs default team runs
+- [#745](https://github.com/chrisxue90/oh-my-qwencode/issues/745) — team cleanup policy hardening
+- [#746](https://github.com/chrisxue90/oh-my-qwencode/issues/746) — team policy/governance split follow-through
+- [#741](https://github.com/chrisxue90/oh-my-qwencode/issues/741) — release-readiness / linked team-Ralph runtime follow-up
+- [#732](https://github.com/chrisxue90/oh-my-qwencode/issues/732) — related team stall/lifecycle cleanup follow-up

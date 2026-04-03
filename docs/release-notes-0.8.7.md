@@ -3,7 +3,7 @@
 Released: 2026-03-08
 
 12 non-merge commits from `v0.8.6..dev`.
-Contributors: [@Yeachan-Heo](https://github.com/Yeachan-Heo), [@HaD0Yun](https://github.com/HaD0Yun), [@marlocarlo](https://github.com/marlocarlo).
+Contributors: [@chrisxue90](https://github.com/chrisxue90), [@HaD0Yun](https://github.com/HaD0Yun), [@marlocarlo](https://github.com/marlocarlo).
 
 ## Highlights
 
@@ -19,10 +19,10 @@ This release:
 - documents the GPT-5.4 prompt-guidance contract directly in the repo
 
 Representative PRs:
-- [#619](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/619) — XML-tag prompt migration
-- [#620](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/620) — prompt-guidance contract documentation
-- [#623](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/623) — 2-layer orchestrator / role-prompt documentation
-- [#625](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/625) — leader-only orchestration boundaries
+- [#619](https://github.com/chrisxue90/oh-my-qwencode/pull/619) — XML-tag prompt migration
+- [#620](https://github.com/chrisxue90/oh-my-qwencode/pull/620) — prompt-guidance contract documentation
+- [#623](https://github.com/chrisxue90/oh-my-qwencode/pull/623) — 2-layer orchestrator / role-prompt documentation
+- [#625](https://github.com/chrisxue90/oh-my-qwencode/pull/625) — leader-only orchestration boundaries
 
 ### Team runtime hardening
 
@@ -34,7 +34,7 @@ Notable effects:
 - broader runtime/state/worktree/end-to-end regression coverage
 - a dedicated hardening benchmark script
 
-PR: [#624](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/624)
+PR: [#624](https://github.com/chrisxue90/oh-my-qwencode/pull/624)
 
 ### MCP server stdio teardown unification
 
@@ -46,7 +46,7 @@ This release:
 - routes stdin close, transport close, `SIGTERM`, and `SIGINT` through one lifecycle path
 - adds regression coverage for idle teardown across the MCP server entrypoints
 
-PRs: [#626](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/626), [#627](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/627)
+PRs: [#626](https://github.com/chrisxue90/oh-my-qwencode/pull/626), [#627](https://github.com/chrisxue90/oh-my-qwencode/pull/627)
 
 ### npm global-install bin contract fix
 
@@ -56,7 +56,7 @@ It:
 - corrects the published npm bin path contract in `package.json`
 - adds `src/cli/__tests__/package-bin-contract.test.ts` so the global-install `omq` entrypoint stays covered in CI
 
-PR: [#633](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/633)
+PR: [#633](https://github.com/chrisxue90/oh-my-qwencode/pull/633)
 
 ## Bug fixes and operational polish
 
@@ -70,7 +70,7 @@ Instead, it now:
 - uses `where` where appropriate on Windows
 - documents platform-specific setup paths more clearly in the README
 
-PR: [#616](https://github.com/Yeachan-Heo/oh-my-qwencode/pull/616)
+PR: [#616](https://github.com/chrisxue90/oh-my-qwencode/pull/616)
 
 ### Fast-path agent posture tuning
 

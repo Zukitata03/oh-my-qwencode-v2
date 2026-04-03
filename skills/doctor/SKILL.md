@@ -171,7 +171,7 @@ ls | sort -V | head -n -1 | xargs rm -rf
 ### Fix: Missing/Outdated AGENTS.md
 Fetch latest from GitHub and write to `~/.qwen/AGENTS.md`:
 ```
-WebFetch(url: "https://raw.githubusercontent.com/Yeachan-Heo/oh-my-qwencode/main/docs/AGENTS.md", prompt: "Return the complete raw markdown content exactly as-is")
+WebFetch(url: "https://raw.githubusercontent.com/chrisxue90/oh-my-qwencode/main/docs/AGENTS.md", prompt: "Return the complete raw markdown content exactly as-is")
 ```
 
 ### Fix: Legacy Curl-Installed Content

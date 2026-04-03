@@ -1,7 +1,7 @@
 # oh-my-qwencode (OMQ)
 
 <p align="center">
-  <img src="https://yeachan-heo.github.io/oh-my-qwencode-website/omq-character-nobg.png" alt="oh-my-qwencode character" width="280">
+  
   <br>
   <em>你的 qwen 并不孤单。</em>
 </p>
@@ -11,7 +11,7 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 [![Discord](https://img.shields.io/discord/1452487457085063218?color=5865F2&logo=discord&logoColor=white&label=Discord)](https://discord.gg/PUwSMR9XNk)
 
-> **[Website](https://yeachan-heo.github.io/oh-my-qwencode-website/)** | **[Documentation](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** | **[CLI Reference](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** | **[Workflows](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** | **[OpenClaw 集成指南](./docs/openclaw-integration.zh.md)** | **[GitHub](https://github.com/Yeachan-Heo/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
+> **[Website](https://chrisxue90.github.io/oh-my-qwencode-website/ _(coming soon)_)** | **[Documentation](./docs/getting-started.html)** | **[CLI Reference](./docs/getting-started.html#cli-reference)** | **[Workflows](./docs/getting-started.html#workflows)** | **[OpenClaw 集成指南](./docs/openclaw-integration.zh.md)** | **[GitHub](https://github.com/chrisxue90/oh-my-qwencode)** | **[npm](https://www.npmjs.com/package/oh-my-qwencode)**
 
 [Qwen Code](https://github.com/openai/qwen) 的多智能体编排层。
 
@@ -226,7 +226,7 @@ oh-my-qwencode/
 ## 开发
 
 ```bash
-git clone https://github.com/Yeachan-Heo/oh-my-qwencode.git
+git clone https://github.com/chrisxue90/oh-my-qwencode.git
 cd oh-my-qwencode
 npm install
 npm run build
@@ -235,11 +235,11 @@ npm test
 
 ## 文档
 
-- **[完整文档](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html)** — 完整指南
-- **[CLI 参考](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#cli-reference)** — 所有 `omq` 命令、标志和工具
-- **[通知指南](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#notifications)** — Discord、Telegram、Slack 和 webhook 设置
-- **[推荐工作流](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#workflows)** — 用于常见任务的经过实战检验的 skill 链
-- **[发行说明](https://yeachan-heo.github.io/oh-my-qwencode-website/docs.html#release-notes)** — 每个版本的新功能
+- **[完整文档](./docs/getting-started.html)** — 完整指南
+- **[CLI 参考](./docs/getting-started.html#cli-reference)** — 所有 `omq` 命令、标志和工具
+- **[通知指南](./docs/getting-started.html#notifications)** — Discord、Telegram、Slack 和 webhook 设置
+- **[推荐工作流](./docs/getting-started.html#workflows)** — 用于常见任务的经过实战检验的 skill 链
+- **[发行说明](./docs/getting-started.html#release-notes)** — 每个版本的新功能
 
 ## 备注
 
@@ -251,7 +251,7 @@ npm test
 
 ## 致谢
 
-受 [oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) 启发，为 Qwen Code 适配。
+受 [oh-my-claudecode](https://github.com/chrisxue90/oh-my-claudecode) 启发，为 Qwen Code 适配。
 
 ## 许可证
 
