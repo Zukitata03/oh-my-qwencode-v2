@@ -1,0 +1,61 @@
+
+oh-my-qwencode (omq) - Multi-agent orchestration for Qwen Code
+
+Usage:
+  omq           Launch Qwen Code (HUD auto-attaches only when already inside tmux)
+  omq exec      Run qwen exec non-interactively with OMQ AGENTS/overlay injection
+  omq setup     Install skills, prompts, MCP servers, and scope-specific AGENTS.md
+  omq uninstall Remove OMQ configuration and clean up installed artifacts
+  omq doctor    Check installation health
+  omq cleanup   Kill orphaned OMQ MCP server processes from prior sessions
+  omq doctor --team  Check team/swarm runtime health diagnostics
+  omq ask       Ask local provider CLI (claude|gemini) and write artifact output
+  omq autoresearch Launch thin-supervisor autoresearch with keep/discard/reset parity
+  omq explore   Default read-only exploration entrypoint (may adaptively use sparkshell backend)
+  omq session   Search prior local session transcripts and history artifacts
+  omq agents-init [path]
+                Bootstrap lightweight AGENTS.md files for a repo/subtree
+  omq deepinit [path]
+                Alias for agents-init (lightweight AGENTS bootstrap only)
+  omq team      Spawn parallel worker panes in tmux and bootstrap inbox/task state
+  omq ralph     Launch Qwen Code with ralph persistence mode active
+  omq version   Show version information
+  omq tmux-hook Manage tmux prompt injection workaround (init|status|validate|test)
+  omq hooks     Manage hook plugins (init|status|validate|test)
+  omq hud       Show HUD statusline (--watch, --json, --preset=NAME)
+  omq sparkshell <command> [args...]
+  omq sparkshell --tmux-pane <pane-id> [--tail-lines <100-1000>]
+                Run native sparkshell sidecar for direct command execution or explicit tmux-pane summarization
+                (also used as an adaptive backend for qualifying read-only explore tasks)
+  omq help      Show this help message
+  omq status    Show active modes and state
+  omq cancel    Cancel active execution modes
+  omq reasoning Show or set model reasoning effort (low|medium|high|xhigh)
+
+Options:
+  --yolo        Launch Qwen Code in yolo mode (shorthand for: omq launch --yolo)
+  --high        Launch Qwen Code with high reasoning effort
+                (shorthand for: -c model_reasoning_effort="high")
+  --xhigh       Launch Qwen Code with xhigh reasoning effort
+                (shorthand for: -c model_reasoning_effort="xhigh")
+  --madmax      DANGEROUS: bypass Qwen Code approvals and sandbox
+                (alias for --dangerously-bypass-approvals-and-sandbox)
+  --spark       Use the Qwen Code spark model (~1.3x faster) for team workers only
+                Workers get the configured low-complexity team model; leader model unchanged
+  --madmax-spark  spark model for workers + bypass approvals for leader and workers
+                (shorthand for: --spark --madmax)
+  --notify-temp  Enable temporary notification routing for this run/session only
+  --discord      Select Discord provider for temporary notification mode
+  --slack        Select Slack provider for temporary notification mode
+  --telegram     Select Telegram provider for temporary notification mode
+  --custom <name>
+                Select custom/OpenClaw gateway name for temporary notification mode
+  -w, --worktree[=<name>]
+                Launch Qwen Code in a git worktree (detached when no name is given)
+  --force       Force reinstall (overwrite existing files)
+  --dry-run     Show what would be done without doing it
+  --keep-config Skip config.toml cleanup during uninstall
+  --purge       Remove .omq/ cache directory during uninstall
+  --verbose     Show detailed output
+  --scope       Setup scope for "omq setup" only:
+                user | project

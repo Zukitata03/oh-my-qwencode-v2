@@ -1,0 +1,32 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.omc/state/
+.omc/prompts/
+.omc/logs/
+.omc/research/
+.omc/
+.omq/
+
+# Local agent/worktree artifacts (never commit)
+.claude/
+.claire/
+.qwen/
+.agents/
+coverage/
+target/
+bin/native/
+bin/omq-explore-harness
+bin/omq-explore-harness.exe
+bin/omq-explore-harness.meta.json
+
+# Local runtime bridge artifacts (generated)
+authority.json
+backlog.json
+dispatch.json
+engine.lock
+events.json
+mailbox.json
+readiness.json
+replay.json
+snapshot.json

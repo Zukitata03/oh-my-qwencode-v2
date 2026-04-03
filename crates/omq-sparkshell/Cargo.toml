@@ -1,0 +1,13 @@
+[package]
+name = "omq-sparkshell"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "omq-sparkshell"
+path = "src/main.rs"
+
+[dependencies]
+omq-mux = { path = "../omq-mux" }

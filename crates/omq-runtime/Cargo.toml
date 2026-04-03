@@ -1,0 +1,12 @@
+[package]
+name = "omq-runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+omq-mux = { path = "../omq-mux" }
+omq-runtime-core = { path = "../omq-runtime-core" }
+serde_json = "1"
+

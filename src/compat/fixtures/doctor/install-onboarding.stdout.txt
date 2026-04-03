@@ -1,0 +1,21 @@
+oh-my-qwencode doctor
+==================
+
+Resolved setup scope: user
+
+  [QWEN_CLI_STATUS]
+  [OK] Node.js: <NODE_VERSION>
+  [EXPLORE_HARNESS_STATUS]
+  [OK] Qwen Code home: <QWEN_HOME>
+  [!!] Config: config.toml exists but no OMQ entries yet (expected before first setup; run "omq setup --force" once)
+  [OK] Explore routing: enabled by default
+  [!!] Prompts: prompts directory not found
+  [!!] Skills: skills directory not found
+  [OK] Legacy skill roots: no ~/.agents/skills overlap detected
+  [!!] AGENTS.md: not found in <QWEN_HOME>/AGENTS.md (run omq setup --scope user)
+  [!!] State dir: <REPO_STATE_DIR> (not created yet)
+  [!!] MCP Servers: 1 servers but no OMQ servers yet (expected before first setup; run "omq setup --force" once)
+
+Results: <RESULTS>
+
+Run <SETUP_FOLLOWUP>

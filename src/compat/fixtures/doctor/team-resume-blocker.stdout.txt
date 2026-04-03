@@ -1,0 +1,6 @@
+oh-my-qwencode doctor --team
+=========================
+
+  [XX] resume_blocker: alpha references missing tmux session omq-team-alpha
+
+Results: 0 warnings, 1 failed
