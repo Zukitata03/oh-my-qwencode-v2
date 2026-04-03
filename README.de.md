@@ -1,5 +1,7 @@
 # oh-my-qwencode (OMQ)
 
+> **Hinweis:** Dieses Projekt ist ein Port von [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex), angepasst für Qwen Code.
+
 <p align="center">
   
   <br>

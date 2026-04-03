@@ -1,5 +1,7 @@
 # oh-my-qwencode (OMQ)
 
+> **Note:** This project is a port of [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) adapted for Qwen Code.
+
 <p align="center">
   <em>Start Qwen Code stronger, then let OMQ add better prompts, workflows, and runtime help when the work grows.</em>
 </p>
@@ -202,10 +204,7 @@ If this happens, try:
 
 ## Contributors
 
-| Role | Name | GitHub |
-| --- | --- | --- |
-| Creator & Lead | Chris Xue | [@chrisxue90](https://github.com/chrisxue90) |
-| Maintainer | HaD0Yun | [@HaD0Yun](https://github.com/HaD0Yun) |
+Thank you to everyone who has contributed to oh-my-qwencode.
 
 ## Star History
 

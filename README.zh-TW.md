@@ -1,5 +1,7 @@
 # oh-my-qwencode (OMQ)
 
+> **註：** 本專案是 [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) 移植到 Qwen Code 的版本。
+
 <p align="center">
   
   <br>

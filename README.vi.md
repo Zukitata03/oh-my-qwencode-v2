@@ -1,5 +1,7 @@
 # oh-my-qwencode (OMQ)
 
+> **Lưu ý:** Dự án này là bản chuyển đổi từ [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) sang Qwen Code.
+
 <p align="center">
   
   <br>
