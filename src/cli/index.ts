@@ -26,6 +26,7 @@ import { autoresearchCommand } from "./autoresearch.js";
 import {
   MADMAX_FLAG,
   QWEN_BYPASS_FLAG,
+  QWEN_BYPASS_VALUE,
   HIGH_REASONING_FLAG,
   XHIGH_REASONING_FLAG,
   SPARK_FLAG,
@@ -1012,7 +1013,7 @@ export function normalizeQwenLaunchArgs(args: string[]): string[] {
     if (arg === QWEN_BYPASS_FLAG) {
       wantsBypass = true;
       if (!hasBypass) {
-        normalized.push(arg);
+        normalized.push(arg, QWEN_BYPASS_VALUE);
         hasBypass = true;
       }
       continue;
@@ -1043,11 +1044,15 @@ export function normalizeQwenLaunchArgs(args: string[]): string[] {
   }
 
   if (wantsBypass && !hasBypass) {
-    normalized.push(QWEN_BYPASS_FLAG);
+    normalized.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
   }
 
-  if (reasoningMode) {
-    normalized.push(CONFIG_FLAG, `${REASONING_KEY}="${reasoningMode}"`);
+  // Qwen Code 0.14.0+ no longer supports --high/--xhigh flags
+  // Users must configure model_reasoning_effort in ~/.qwen/settings.json
+  // Silently consume these flags for backward compatibility
+  if (reasoningMode === "high" || reasoningMode === "xhigh") {
+    // Flag consumed but not passed to qwen
+    // User should set model_reasoning_effort in settings.json
   }
 
   return normalized;
@@ -1186,10 +1191,16 @@ export function injectModelInstructionsBypassArgs(
 ): string[] {
   if (!shouldBypassDefaultSystemPrompt(env)) return [...args];
   if (hasModelInstructionsOverride(args)) return [...args];
+  
+  const filePath =
+    env[OMQ_MODEL_INSTRUCTIONS_FILE_ENV] ||
+    defaultFilePath ||
+    join(cwd, "AGENTS.md");
+  
   return [
     ...args,
-    CONFIG_FLAG,
-    buildModelInstructionsOverride(cwd, env, defaultFilePath),
+    "--append-system-prompt",
+    `See instructions in file: ${filePath}`,
   ];
 }
 
