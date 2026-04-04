@@ -727,6 +727,7 @@ describe('buildWorkerStartupCommand', () => {
       await chmod(qwenPath, 0o755);
 
       const { buildWorkerStartupCommand: buildFreshWorkerStartupCommand } = await import(`../tmux-session.js?posix-path=${Date.now()}`);
+      // Note: -c model_reasoning_effort is silently ignored as Qwen Code does not support CLI reasoning
       const cmd = buildFreshWorkerStartupCommand(
         'alpha',
         1,
@@ -741,6 +742,8 @@ describe('buildWorkerStartupCommand', () => {
       assert.match(cmd, new RegExp(escapeRegExp(`export PATH='\\''${fakeBin}'\\'':$PATH; exec ${qwenPath}`)));
       assert.doesNotMatch(cmd, /export PATH='\\''node'\\'':\$PATH/);
       assert.doesNotMatch(cmd, / exec qwen(?:\s|')/);
+      // Reasoning is silently ignored
+      assert.doesNotMatch(cmd, /model_reasoning_effort/);
     } finally {
       if (typeof prevPath === 'string') process.env.PATH = prevPath;
       else delete process.env.PATH;
@@ -794,7 +797,7 @@ describe('buildWorkerStartupCommand', () => {
     }
   });
 
-  it('preserves reasoning override args in worker command', () => {
+  it('silently ignores reasoning override args as Qwen Code does not support CLI reasoning', () => {
     const prevShell = process.env.SHELL;
     process.env.SHELL = '/bin/bash';
     const prevBypass = process.env.OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT;
@@ -802,8 +805,8 @@ describe('buildWorkerStartupCommand', () => {
     try {
       const cmd = buildWorkerStartupCommand('alpha', 1, ['-c', 'model_reasoning_effort="xhigh"']);
       assert.match(cmd, /exec .*qwen/);
-      assert.match(cmd, /'-c'/);
-      assert.match(cmd, /'model_reasoning_effort=\"xhigh\"'/);
+      // Reasoning is silently ignored
+      assert.doesNotMatch(cmd, /model_reasoning_effort/);
     } finally {
       if (typeof prevShell === 'string') process.env.SHELL = prevShell;
       else delete process.env.SHELL;
@@ -812,7 +815,7 @@ describe('buildWorkerStartupCommand', () => {
     }
   });
 
-  it('forces qwen bypass under explicit launch-arg profiles', () => {
+  it('forces qwen bypass under explicit launch-arg profiles (reasoning silently ignored)', () => {
     const prevShell = process.env.SHELL;
     process.env.SHELL = '/bin/bash';
     const prevBypass = process.env.OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT;
@@ -831,7 +834,8 @@ describe('buildWorkerStartupCommand', () => {
         assert.match(cmd, /\byolo\b/);
         assert.match(cmd, /--model/);
         assert.match(cmd, new RegExp(launchArgs[1]!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
-        assert.match(cmd, new RegExp(launchArgs[3]!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+        // Reasoning is silently ignored
+        assert.doesNotMatch(cmd, /model_reasoning_effort/);
       }
     } finally {
       if (typeof prevShell === 'string') process.env.SHELL = prevShell;
@@ -841,7 +845,7 @@ describe('buildWorkerStartupCommand', () => {
     }
   });
 
-  it('supports worker-specific reasoning overrides for qwen and strips them for claude workers', () => {
+  it('silently ignores reasoning overrides for qwen and claude workers', () => {
     const prevShell = process.env.SHELL;
     const prevBypass = process.env.OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT;
     process.env.SHELL = '/bin/bash';
@@ -850,7 +854,8 @@ describe('buildWorkerStartupCommand', () => {
       const qwenCmd = buildWorkerStartupCommand('alpha', 1, ['-c', 'model_reasoning_effort="low"'], process.cwd(), {}, 'qwen');
       const claudeCmd = buildWorkerStartupCommand('alpha', 2, ['-c', 'model_reasoning_effort="high"'], process.cwd(), {}, 'claude');
       assert.match(qwenCmd, /exec .*qwen/);
-      assert.match(qwenCmd, /'model_reasoning_effort="low"'/);
+      // Reasoning is silently ignored for both qwen and claude
+      assert.doesNotMatch(qwenCmd, /model_reasoning_effort/);
       assert.match(claudeCmd, /exec .*claude/);
       assert.equal((claudeCmd.match(/--dangerously-skip-permissions/g) || []).length, 1);
       assert.doesNotMatch(claudeCmd, /model_reasoning_effort/);
@@ -900,7 +905,8 @@ describe('buildWorkerStartupCommand', () => {
         'qwen',
       );
       const joined = spec.args.join(' ');
-      assert.match(joined, /model_reasoning_effort="low"/);
+      // Reasoning is silently ignored
+      assert.doesNotMatch(joined, /model_reasoning_effort/);
       assert.match(joined, /model_instructions_file="\/tmp\/project\/.omq\/state\/team\/alpha\/workers\/worker-1\/AGENTS\.md"/);
     } finally {
       if (typeof prevBypass === 'string') process.env.OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT = prevBypass;
@@ -1092,12 +1098,16 @@ describe('team worker CLI helpers', () => {
     assert.deepEqual(plan, ['qwen', 'gemini', 'claude']);
   });
 
-  it('translateWorkerLaunchArgsForCli preserves args for qwen', () => {
+  it('translateWorkerLaunchArgsForCli preserves args for qwen (reasoning silently ignored)', () => {
     const args = ['--model', 'gpt-5', '-c', 'model_reasoning_effort="xhigh"'];
-    assert.deepEqual(translateWorkerLaunchArgsForCli('qwen', args), args);
+    const result = translateWorkerLaunchArgsForCli('qwen', args);
+    // Reasoning is silently ignored
+    assert.ok(!result.some(a => a.includes('model_reasoning_effort')));
+    assert.ok(result.includes('--model'));
+    assert.ok(result.includes('gpt-5'));
   });
 
-  it('translateWorkerLaunchArgsForCli returns only skip-permissions for claude', () => {
+  it('translateWorkerLaunchArgsForCli returns only skip-permissions for claude (reasoning silently ignored)', () => {
     assert.deepEqual(
       translateWorkerLaunchArgsForCli('claude', ['-c', 'model_reasoning_effort="xhigh"', '--model', 'claude-3-7-sonnet']),
       ['--dangerously-skip-permissions'],

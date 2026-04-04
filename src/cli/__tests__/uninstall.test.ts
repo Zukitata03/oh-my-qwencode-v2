@@ -42,7 +42,6 @@ function buildOmqConfig(): string {
   return [
     '# oh-my-qwencode top-level settings (must be before any [table])',
     'notify = ["node", "/path/to/notify-hook.js"]',
-    'model_reasoning_effort = "high"',
     'developer_instructions = "You have oh-my-qwencode installed."',
     '',
     '[features]',
@@ -102,7 +101,6 @@ function buildConfigWithSeededModelContext(): string {
   return [
     '# oh-my-qwencode top-level settings (must be before any [table])',
     'notify = ["node", "/path/to/notify-hook.js"]',
-    'model_reasoning_effort = "high"',
     'developer_instructions = "You have oh-my-qwencode installed."',
     'model = "qwen3.6-plus"',
     'model_context_window = 1000000',
@@ -231,7 +229,6 @@ describe('omq uninstall', () => {
       assert.doesNotMatch(config, /\[agents\.executor\]/);
       assert.doesNotMatch(config, /\[tui\]/);
       assert.doesNotMatch(config, /notify\s*=/);
-      assert.doesNotMatch(config, /model_reasoning_effort\s*=/);
       assert.doesNotMatch(config, /developer_instructions\s*=/);
       assert.doesNotMatch(config, /multi_agent\s*=/);
       assert.doesNotMatch(config, /child_agents_md\s*=/);
@@ -287,7 +284,6 @@ describe('omq uninstall', () => {
       assert.match(config, /^model_context_window = 1000000$/m);
       assert.match(config, /^model_auto_compact_token_limit = 900000$/m);
       assert.doesNotMatch(config, /notify\s*=/);
-      assert.doesNotMatch(config, /model_reasoning_effort\s*=/);
       assert.doesNotMatch(config, /developer_instructions\s*=/);
       assert.doesNotMatch(config, /oh-my-qwencode \(OMQ\) Configuration/);
     } finally {

@@ -101,7 +101,7 @@ function scaffoldAgentToml(name: string): string {
     '',
     '# Optional fields:',
     `# model = "${DEFAULT_AGENT_MODEL}"`,
-    '# model_reasoning_effort = "medium"',
+    '# Note: model_reasoning_effort should be configured in ~/.qwen/settings.json',
     '# temperature = 0.2',
     '# tools = ["shell", "apply_patch"]',
     '',

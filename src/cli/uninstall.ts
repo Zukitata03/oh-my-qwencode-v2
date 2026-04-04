@@ -73,7 +73,6 @@ function detectOmqConfigArtifacts(config: string): {
 
   const hasTopLevelKeys =
     /^\s*notify\s*=.*node/m.test(config) ||
-    /^\s*model_reasoning_effort\s*=/m.test(config) ||
     /^\s*developer_instructions\s*=.*oh-my-qwencode/m.test(config);
 
   const hasFeatureFlags =
@@ -317,7 +316,7 @@ function printSummary(summary: UninstallSummary, dryRun: boolean): void {
     }
     if (summary.topLevelKeysRemoved) {
       console.log(
-        "    Top-level keys (notify, model_reasoning_effort, developer_instructions)",
+        "    Top-level keys (notify, developer_instructions)",
       );
     }
     if (summary.featureFlagsRemoved) {

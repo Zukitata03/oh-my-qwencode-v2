@@ -87,7 +87,7 @@ describe('omq agents', () => {
       assert.match(content, /^description = "TODO: describe this agent's purpose"$/m);
       assert.match(content, /^developer_instructions = """$/m);
       assert.match(content, /^# model = "qwen3.6-plus"$/m);
-      assert.match(content, /^# model_reasoning_effort = "medium"$/m);
+      assert.match(content, /^# Note: model_reasoning_effort should be configured in ~\/.qwen\/settings.json$/m);
     } finally {
       await rm(wd, { recursive: true, force: true });
     }

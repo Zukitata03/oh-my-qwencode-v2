@@ -41,6 +41,7 @@ export interface TeamSession {
 
 const INJECTION_MARKER = '[OMQ_TMUX_INJECT]';
 const MODEL_INSTRUCTIONS_FILE_KEY = 'model_instructions_file';
+const REASONING_KEY = 'model_reasoning_effort';
 const OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT_ENV = 'OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT';
 const OMQ_MODEL_INSTRUCTIONS_FILE_ENV = 'OMQ_MODEL_INSTRUCTIONS_FILE';
 const OMQ_TEAM_WORKER_CLI_ENV = 'OMQ_TEAM_WORKER_CLI';
@@ -435,6 +436,10 @@ function isModelInstructionsOverride(value: string): boolean {
   return new RegExp(`^${MODEL_INSTRUCTIONS_FILE_KEY}\\s*=`).test(value.trim());
 }
 
+function isReasoningOverride(value: string): boolean {
+  return new RegExp(`^${REASONING_KEY}\\s*=`).test(value.trim());
+}
+
 function hasModelInstructionsOverride(args: string[]): boolean {
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -551,7 +556,27 @@ export function resolveTeamWorkerCliPlan(
 }
 
 export function translateWorkerLaunchArgsForCli(workerCli: TeamWorkerCli, args: string[], initialPrompt?: string): string[] {
-  if (workerCli === 'qwen') return [...args];
+  if (workerCli === 'qwen') {
+    // Filter out -c model_reasoning_effort as Qwen Code does not support CLI reasoning
+    const filtered: string[] = [];
+    let skipNext = false;
+    for (let i = 0; i < args.length; i++) {
+      if (skipNext) {
+        skipNext = false;
+        continue;
+      }
+      if (args[i] === CONFIG_FLAG || args[i] === LONG_CONFIG_FLAG) {
+        const maybeValue = args[i + 1];
+        if (typeof maybeValue === 'string' && isReasoningOverride(maybeValue)) {
+          // Silently ignore reasoning override
+          skipNext = true;
+          continue;
+        }
+      }
+      filtered.push(args[i]);
+    }
+    return filtered;
+  }
   if (workerCli === 'gemini') {
     const model = extractModelOverride(args);
     const geminiModel = model && /gemini/i.test(model) ? model : null;

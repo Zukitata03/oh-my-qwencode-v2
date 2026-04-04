@@ -35,11 +35,11 @@ Usage:
 Options:
   --yolo        Launch Qwen Code in yolo mode (shorthand for: omq launch --yolo)
   --high        Launch Qwen Code with high reasoning effort
-                (shorthand for: -c model_reasoning_effort="high")
+                (Note: Qwen Code 0.14.0+ requires configuring model_reasoning_effort in ~/.qwen/settings.json)
   --xhigh       Launch Qwen Code with xhigh reasoning effort
-                (shorthand for: -c model_reasoning_effort="xhigh")
+                (Note: Qwen Code 0.14.0+ requires configuring model_reasoning_effort in ~/.qwen/settings.json)
   --madmax      DANGEROUS: bypass Qwen Code approvals and sandbox
-                (alias for --dangerously-bypass-approvals-and-sandbox)
+                (alias for --approval-mode yolo)
   --spark       Use the Qwen Code spark model (~1.3x faster) for team workers only
                 Workers get the configured low-complexity team model; leader model unchanged
   --madmax-spark  spark model for workers + bypass approvals for leader and workers

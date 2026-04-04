@@ -86,7 +86,7 @@ describe('tmux claude workers demo', () => {
       );
     });
 
-    it('claude worker drops qwen-specific flags', () => {
+    it('claude worker drops qwen-specific flags (reasoning silently ignored)', () => {
       const qwenArgs = [
         '--model',
         'claude-sonnet-4-6',
@@ -158,10 +158,11 @@ describe('tmux claude workers demo', () => {
   });
 
   describe('full demo scenario with 6 mixed workers', () => {
-    it('creates correct launch specs for all workers in demo', () => {
+    it('creates correct launch specs for all workers in demo (reasoning silently ignored)', () => {
       const workerCount = 6;
       const teamName = 'tmux-claude-workers-demo';
       const cwd = '/home/bellman/Workspace/oh-my-qwencode';
+      // Note: -c model_reasoning_effort is silently ignored
       const launchArgs = ['--model', 'qwen3.5-plus', '-c', 'model_reasoning_effort="low"'];
 
       // Build CLI map like demo script does

@@ -84,7 +84,8 @@ TEAM_TASK="${TEAM_TASK:-e2e team demo $(date -u +%Y%m%d%H%M%S)}"
 TEAM_NAME="${TEAM_NAME:-$(slugify "$TEAM_TASK")}"
 OMQ_TEAM_WORKER_CLI="${OMQ_TEAM_WORKER_CLI:-auto}"
 OMQ_TEAM_WORKER_CLI_MAP="${OMQ_TEAM_WORKER_CLI_MAP:-$(build_default_cli_map "$WORKER_COUNT")}"
-OMQ_TEAM_WORKER_LAUNCH_ARGS="${OMQ_TEAM_WORKER_LAUNCH_ARGS:--c model_reasoning_effort=\"low\"}"
+# Note: model_reasoning_effort should be configured in ~/.qwen/settings.json, not via CLI args
+OMQ_TEAM_WORKER_LAUNCH_ARGS="${OMQ_TEAM_WORKER_LAUNCH_ARGS:-}"
 
 TEAM_STARTED=0
 cleanup() {
