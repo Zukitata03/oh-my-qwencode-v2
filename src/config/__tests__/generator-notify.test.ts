@@ -14,8 +14,8 @@ describe('config generator', () => {
       const toml = await readFile(configPath, 'utf-8');
 
       // Top-level keys must appear before the first [table] header
+      // Note: model_reasoning_effort is no longer written to config.toml (configured in settings.json instead)
       const notifyIdx = toml.indexOf('notify =');
-      const reasoningIdx = toml.indexOf('model_reasoning_effort =');
       const devInstrIdx = toml.indexOf('developer_instructions =');
       const modelIdx = toml.indexOf('model = "qwen3.6-plus"');
       const contextIdx = toml.indexOf('model_context_window = 1000000');
@@ -23,7 +23,6 @@ describe('config generator', () => {
       const featuresIdx = toml.indexOf('[features]');
 
       assert.ok(notifyIdx >= 0, 'notify not found');
-      assert.ok(reasoningIdx >= 0, 'model_reasoning_effort not found');
       assert.ok(devInstrIdx >= 0, 'developer_instructions not found');
       assert.ok(modelIdx >= 0, 'model not found');
       assert.ok(contextIdx >= 0, 'model_context_window not found');
@@ -31,7 +30,6 @@ describe('config generator', () => {
       assert.ok(featuresIdx >= 0, '[features] not found');
 
       assert.ok(notifyIdx < featuresIdx, 'notify must come before [features]');
-      assert.ok(reasoningIdx < featuresIdx, 'model_reasoning_effort must come before [features]');
       assert.ok(devInstrIdx < featuresIdx, 'developer_instructions must come before [features]');
       assert.ok(modelIdx < featuresIdx, 'model must come before [features]');
       assert.ok(contextIdx < featuresIdx, 'model_context_window must come before [features]');
@@ -88,14 +86,15 @@ describe('config generator', () => {
     }
   });
 
-  it('writes model_reasoning_effort and strengthened developer_instructions', async () => {
+  it('writes strengthened developer_instructions (model_reasoning_effort configured in settings.json)', async () => {
     const wd = await mkdtemp(join(tmpdir(), 'omq-config-gen-'));
     try {
       const configPath = join(wd, 'config.toml');
       await mergeConfig(configPath, wd);
       const toml = await readFile(configPath, 'utf-8');
 
-      assert.match(toml, /^model_reasoning_effort = "high"$/m);
+      // Note: model_reasoning_effort is no longer written to config.toml
+      assert.doesNotMatch(toml, /^model_reasoning_effort/m);
       assert.match(toml, /^developer_instructions = "You have oh-my-qwencode installed/m);
       assert.match(toml, /AGENTS\.md is your orchestration brain and the main orchestration surface/);
       assert.match(toml, /Use skill\/keyword routing like \$name plus spawned role-specialized subagents for specialized work/);
@@ -157,7 +156,8 @@ describe('config generator', () => {
 
       // Top-level keys present and before [features]
       assert.match(rerun, /^notify = \["node", ".*notify-hook\.js"\]$/m);
-      assert.match(rerun, /^model_reasoning_effort = "high"$/m);
+      // Note: model_reasoning_effort is no longer written to config.toml
+      assert.doesNotMatch(rerun, /^model_reasoning_effort/m);
       const notifyIdx = rerun.indexOf('notify =');
       const featuresIdx = rerun.indexOf('[features]');
       assert.ok(notifyIdx < featuresIdx, 'notify must come before [features]');
@@ -206,7 +206,8 @@ describe('config generator', () => {
 
       // OMQ keys added
       assert.match(toml, /^notify = \[/m);
-      assert.match(toml, /^model_reasoning_effort = "high"$/m);
+      // Note: model_reasoning_effort is no longer written to config.toml
+      assert.doesNotMatch(toml, /^model_reasoning_effort/m);
 
       // User's feature flag preserved
       assert.match(toml, /^web_search = true$/m);

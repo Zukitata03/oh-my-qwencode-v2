@@ -42,7 +42,8 @@ describe("agents/native-config", () => {
 
     assert.match(toml, /# oh-my-qwencode agent: executor/);
     assert.match(toml, /model = "qwen3.6-plus"/);
-    assert.match(toml, /model_reasoning_effort = "medium"/);
+    // Note: model_reasoning_effort is no longer written to agent config TOML
+    assert.doesNotMatch(toml, /model_reasoning_effort/);
     assert.ok(!toml.includes("title: demo"));
     assert.ok(toml.includes("Instruction line"));
     assert.ok(toml.includes("You are operating in the deep-worker posture."));
@@ -108,7 +109,8 @@ describe("agents/native-config", () => {
         "utf8",
       );
       assert.match(executorToml, /model = "qwen3.6-plus"/);
-      assert.match(executorToml, /model_reasoning_effort = "high"/);
+      // Note: model_reasoning_effort is no longer written to agent config TOML
+      assert.doesNotMatch(executorToml, /model_reasoning_effort/);
 
       const skipped = await installNativeAgentConfigs(root, {
         agentsDir: outDir,

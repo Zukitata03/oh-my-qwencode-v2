@@ -57,11 +57,7 @@ function assertSingleOmqBlock(toml: string): void {
     1,
     "notify key should appear once",
   );
-  assert.equal(
-    count(toml, /^model_reasoning_effort\s*=/gm),
-    1,
-    "model_reasoning_effort should appear once",
-  );
+  // Note: model_reasoning_effort is no longer written to config.toml
   assert.equal(
     count(toml, /^developer_instructions\s*=/gm),
     1,
@@ -137,7 +133,7 @@ describe("config generator idempotency (#384)", () => {
         'model = "o3"',
         "",
         'notify = ["node", "/old/path/notify-hook.js"]',
-        'model_reasoning_effort = "high"',
+        // Note: model_reasoning_effort is no longer written to config.toml
         'developer_instructions = "old instructions"',
         "",
         "[features]",

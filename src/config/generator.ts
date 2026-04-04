@@ -85,7 +85,8 @@ function getOmqTopLevelLines(
   const lines = [
     "# oh-my-qwencode top-level settings (must be before any [table])",
     `notify = ["node", "${escapedPath}"]`,
-    'model_reasoning_effort = "high"',
+    // Note: model_reasoning_effort is configured in ~/.qwen/settings.json, not config.toml
+    // Qwen Code 0.14.0+ does not support reasoning_effort in config.toml
     `developer_instructions = "You have oh-my-qwencode installed. AGENTS.md is your orchestration brain and the main orchestration surface. Use skill/keyword routing like $name plus spawned role-specialized subagents for specialized work. Qwen Code native subagents are available via .qwen/agents and may be used for independent parallel subtasks within a single session or team pane. Skills are loaded from installed SKILL.md files under .qwen/skills, not from native agent TOMLs. Use workflow skills via $name when explicitly invoked or clearly routed by AGENTS.md. Treat installed prompts as narrower internal execution surfaces under AGENTS.md authority, even when user-facing docs prefer $name keywords."`,
   ];
 

@@ -271,9 +271,8 @@ export function generateStandaloneAgentToml(
   if (config.model) {
     lines.push(`model = "${escapeTomlBasicString(config.model)}"`);
   }
-  if (config.reasoningEffort) {
-    lines.push(`model_reasoning_effort = "${config.reasoningEffort}"`);
-  }
+  // Note: model_reasoning_effort is not supported in agent config TOML.
+  // Users should configure reasoning_effort in ~/.qwen/settings.json instead.
   if (
     typeof config.developerInstructions === "string" &&
     config.developerInstructions.trim().length > 0
