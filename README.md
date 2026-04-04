@@ -67,7 +67,9 @@ If you want plain Qwen Code with no extra workflow layer, you probably do not ne
 Launch OMQ the recommended way:
 
 ```bash
-omq --madmax --high
+omq --madmax
+# Note: For reasoning effort, configure model_reasoning_effort in ~/.qwen/settings.json
+# The --high/--xhigh flags are retained for backward compatibility but have no effect
 ```
 
 Then try one role keyword and one workflow skill:
@@ -94,7 +96,7 @@ Most users should think of OMQ as **better task routing + better workflow + bett
 ## Start here if you are new
 
 1. Run `omq setup`
-2. Launch with `omq --madmax --high`
+2. Launch with `omq --madmax`
 3. Ask for analysis with `$architect "..."`
 4. Ask for planning with `$plan "..."`
 5. Let the agent decide when `$ralph`, `$team`, or another workflow is worth using
@@ -168,12 +170,12 @@ omq sparkshell --tmux-pane %12 --tail-lines 400
 
 ### Intel Mac: high `syspolicyd` / `trustd` CPU during startup
 
-On some Intel Macs, OMQ startup — especially with `--madmax --high` — can spike `syspolicyd` / `trustd` CPU usage while macOS Gatekeeper validates many concurrent process launches.
+On some Intel Macs, OMQ startup — especially with `--madmax` — can spike `syspolicyd` / `trustd` CPU usage while macOS Gatekeeper validates many concurrent process launches.
 
 If this happens, try:
 - `xattr -dr com.apple.quarantine $(which omq)`
 - adding your terminal app to the Developer Tools allowlist in macOS Security settings
-- using lower concurrency (for example, avoid `--madmax --high`)
+- using lower concurrency (for example, avoid `--madmax`)
 
 ## Documentation
 

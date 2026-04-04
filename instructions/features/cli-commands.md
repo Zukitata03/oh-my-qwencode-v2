@@ -30,13 +30,14 @@ omq [选项]
 | 选项 | 用途 | 示例 |
 |------|------|------|
 | `--madmax` | 最大性能模式 | `omq --madmax` |
-| `--high` | 高推理能力模型 | `omq --high` |
+| `--high` | （保留以向后兼容）需在 ~/.qwen/settings.json 中配置 model_reasoning_effort | `omq --high` |
 | `--model <model>` | 指定模型 | `omq --model=qwen3.6-plus` |
 
 **示例**：
 ```bash
 # 推荐启动方式
-omq --madmax --high
+omq --madmax
+# 注意：--high/--xhigh 已无实际效果，reasoning_effort 需在 settings.json 中配置
 
 # 指定模型
 omq --model=qwen3.6-plus

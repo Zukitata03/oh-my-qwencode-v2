@@ -212,6 +212,7 @@ export TEAM_NAME="e2e-team-demo"   # slugified from TEAM_TASK
 # Mixed worker CLIs (5+ workers, qwen + claude)
 export OMQ_TEAM_WORKER_CLI=auto
 export OMQ_TEAM_WORKER_CLI_MAP=qwen,qwen,qwen,claude,claude,claude
+# Note: -c model_reasoning_effort is silently ignored (configure in ~/.qwen/settings.json instead)
 export OMQ_TEAM_WORKER_LAUNCH_ARGS='-c model_reasoning_effort="low"'
 
 # 5-worker baseline
@@ -333,6 +334,7 @@ export TEAM_TASK="e2e team demo"
 export TEAM_NAME="e2e-team-demo"
 export OMQ_TEAM_WORKER_CLI=auto
 export OMQ_TEAM_WORKER_CLI_MAP=qwen,qwen,qwen,claude,claude,claude
+# Note: -c model_reasoning_effort is silently ignored (configure in ~/.qwen/settings.json instead)
 export OMQ_TEAM_WORKER_LAUNCH_ARGS='-c model_reasoning_effort="low"'
 
 echo "[1/8] start team (6 workers mixed qwen/claude)"
@@ -441,7 +443,7 @@ The bundled E2E demo script provides a complete, automated test of the tmux clau
 | `TEAM_NAME` | (slugified from TEAM_TASK) | Unique team identifier |
 | `OMQ_TEAM_WORKER_CLI` | `auto` | Worker CLI selection mode |
 | `OMQ_TEAM_WORKER_CLI_MAP` | (auto-generated) | Comma-separated CLI assignments per worker |
-| `OMQ_TEAM_WORKER_LAUNCH_ARGS` | `-c model_reasoning_effort="low"` | Arguments passed to worker CLIs (worker model falls back to `OMQ_DEFAULT_SPARK_MODEL`) |
+| `OMQ_TEAM_WORKER_LAUNCH_ARGS` | `-c model_reasoning_effort="low"` | Arguments passed to worker CLIs (note: reasoning_effort is silently ignored; configure in ~/.qwen/settings.json instead) |
 
 #### Demo Flow
 

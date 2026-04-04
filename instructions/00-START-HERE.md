@@ -42,7 +42,9 @@ instructions/
 
 2. **启动 OMQ**：
    ```bash
-   omq --madmax --high
+   omq --madmax
+   # 注意：如需配置 reasoning effort，请在 ~/.qwen/settings.json 中设置 model_reasoning_effort
+   # --high/--xhigh 标志保留以向后兼容，但已无实际效果
    ```
 
 3. **尝试第一个命令**：

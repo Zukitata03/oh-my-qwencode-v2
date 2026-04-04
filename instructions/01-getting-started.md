@@ -131,12 +131,14 @@ OMQ 依赖 Qwen Code 的 API。你需要：
 推荐启动方式：
 
 ```bash
-omq --madmax --high
+omq --madmax
+# 注意：如需配置 reasoning effort，请在 ~/.qwen/settings.json 中设置 model_reasoning_effort
+# --high 标志保留以向后兼容，但已无实际效果
 ```
 
 参数说明：
 - `--madmax`：启用最大性能模式
-- `--high`：使用高推理能力的模型
+- `--high`：（保留以向后兼容）需在 settings.json 中配置 reasoning_effort
 
 #### 你的第一个任务
 
@@ -748,7 +750,7 @@ OMQ 提供丰富的命令行工具。
 
 | 命令 | 用途 | 示例 |
 |------|------|------|
-| `omq` | 启动 Qwen Code（带 OMQ 配置） | `omq --madmax --high` |
+| `omq` | 启动 Qwen Code（带 OMQ 配置） | `omq --madmax` |
 | `omq setup` | 安装 prompts, skills, 配置 | `omq setup --force` |
 | `omq doctor` | 验证安装状态 | `omq doctor` |
 | `omq version` | 显示版本信息 | `omq version` |
