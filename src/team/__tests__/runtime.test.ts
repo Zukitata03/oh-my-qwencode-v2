@@ -274,7 +274,7 @@ describe('runtime', () => {
     );
   });
 
-  it('resolveWorkerLaunchArgsFromEnv injects teammate reasoning and logs source=role-default', () => {
+  it('resolveWorkerLaunchArgsFromEnv does not inject reasoning via CLI as Qwen Code does not support it', () => {
     const logs: string[] = [];
     const originalLog = console.log;
     console.log = (...args: unknown[]) => { logs.push(args.join(' ')); };
@@ -293,32 +293,35 @@ describe('runtime', () => {
         'high',
         'qwen',
       );
-      assert.deepEqual(lowArgs, ['--no-alt-screen', '-c', 'model_reasoning_effort="low"', '--model', 'qwen3.6-plus']);
-      assert.deepEqual(highArgs, ['--no-alt-screen', '-c', 'model_reasoning_effort="high"', '--model', 'qwen3.6-plus']);
+      // Reasoning is not passed via CLI - users should configure in settings.json
+      assert.deepEqual(lowArgs, ['--no-alt-screen', '--model', 'qwen3.6-plus']);
+      assert.deepEqual(highArgs, ['--no-alt-screen', '--model', 'qwen3.6-plus']);
     } finally {
       console.log = originalLog;
     }
-    assert.ok(logs.some((line) => line.includes('thinking_level=low') && line.includes('source=role-default')));
-    assert.ok(logs.some((line) => line.includes('thinking_level=high') && line.includes('source=role-default')));
+    // thinking_level is logged as 'none' since reasoning is not passed via CLI
+    assert.ok(logs.some((line) => line.includes('thinking_level=none') && line.includes('source=role-default')));
   });
 
-  it('resolveWorkerLaunchArgsFromEnv preserves explicit reasoning and logs source=explicit', () => {
+  it('resolveWorkerLaunchArgsFromEnv silently ignores explicit reasoning as Qwen Code does not support CLI reasoning', () => {
     const logs: string[] = [];
     const originalLog = console.log;
     console.log = (...args: unknown[]) => { logs.push(args.join(' ')); };
     try {
       const args = resolveWorkerLaunchArgsFromEnv(
-        { OMQ_TEAM_WORKER_LAUNCH_ARGS: '-c model_reasoning_effort=\"high\" --no-alt-screen' },
+        { OMQ_TEAM_WORKER_LAUNCH_ARGS: '-c model_reasoning_effort="high" --no-alt-screen' },
         'explore',
       );
+      // Reasoning is silently ignored - not passed via CLI
       assert.deepEqual(
         args,
-        ['--no-alt-screen', '-c', 'model_reasoning_effort="high"', '--model', expectedLowComplexityModel()],
+        ['--no-alt-screen', '--model', expectedLowComplexityModel()],
       );
     } finally {
       console.log = originalLog;
     }
-    assert.ok(logs.some((line) => line.includes('thinking_level=high') && line.includes('source=explicit')));
+    // thinking_level is logged as 'none' since reasoning is silently ignored
+    assert.ok(logs.some((line) => line.includes('thinking_level=none')));
   });
 
   it('resolveWorkerLaunchArgsFromEnv logs model=claude without thinking_level for claude CLI', () => {
@@ -333,9 +336,10 @@ describe('runtime', () => {
         },
         'explore',
       );
+      // Reasoning is silently ignored
       assert.deepEqual(
         args,
-        ['--no-alt-screen', '-c', 'model_reasoning_effort="high"', '--model', expectedLowComplexityModel()],
+        ['--no-alt-screen', '--model', expectedLowComplexityModel()],
       );
     } finally {
       console.log = originalLog;
@@ -370,7 +374,7 @@ describe('runtime', () => {
     assert.doesNotMatch(startupLog, /thinking_level=/);
   });
 
-  it('resolveWorkerLaunchArgsFromEnv keeps qwen thinking_level logging for mixed CLI maps', () => {
+  it('resolveWorkerLaunchArgsFromEnv keeps qwen thinking_level logging as none for mixed CLI maps', () => {
     const logs: string[] = [];
     const originalLog = console.log;
     console.log = (...args: unknown[]) => { logs.push(args.join(' ')); };
@@ -382,11 +386,13 @@ describe('runtime', () => {
         },
         'executor',
       );
-      assert.deepEqual(args, ['-c', 'model_reasoning_effort="high"', '--model', 'claude-3-7-sonnet']);
+      // Reasoning is silently ignored
+      assert.deepEqual(args, ['--model', 'claude-3-7-sonnet']);
     } finally {
       console.log = originalLog;
     }
-    assert.ok(logs.some((line) => line.includes('thinking_level=high') && line.includes('source=explicit')));
+    // thinking_level is logged as 'none' since reasoning is silently ignored
+    assert.ok(logs.some((line) => line.includes('thinking_level=none')));
   });
 
   it('resolveWorkerLaunchArgsFromEnv keeps claude and gemini startup logs free of thinking_level during teammate allocation', () => {
@@ -415,13 +421,14 @@ describe('runtime', () => {
         'low',
         'gemini',
       );
-      assert.deepEqual(qwenArgs, ['--no-alt-screen', '-c', 'model_reasoning_effort="high"', '--model', 'qwen3.6-plus']);
-      assert.deepEqual(claudeArgs, ['--no-alt-screen', '-c', 'model_reasoning_effort="low"', '--model', 'claude-3-7-sonnet']);
-      assert.deepEqual(geminiArgs, ['-c', 'model_reasoning_effort="low"', '--model', 'gemini-2.0-pro']);
+      // Reasoning is not passed via CLI
+      assert.deepEqual(qwenArgs, ['--no-alt-screen', '--model', 'qwen3.6-plus']);
+      assert.deepEqual(claudeArgs, ['--no-alt-screen', '--model', 'claude-3-7-sonnet']);
+      assert.deepEqual(geminiArgs, ['--model', 'gemini-2.0-pro']);
     } finally {
       console.log = originalLog;
     }
-    const qwenLog = logs.find((line) => line.includes('thinking_level=high'));
+    const qwenLog = logs.find((line) => line.includes('thinking_level=none'));
     const claudeLog = logs.find((line) => line.includes('model=claude'));
     const geminiLog = logs.find((line) => line.includes('model=gemini'));
     assert.ok(qwenLog);
@@ -814,8 +821,9 @@ process.on('SIGTERM', () => process.exit(0));
       assert.equal(argv.filter((arg) => arg === 'yolo').length, 1);
       assert.equal(argv.includes('--model'), true);
       assert.equal(argv[argv.indexOf('--model') + 1], 'qwen3.5-plus');
-      assert.equal(argv.includes('-c'), true);
-      assert.equal(argv.includes('model_reasoning_effort="low"'), true);
+      // Note: -c model_reasoning_effort is silently ignored as Qwen Code does not support CLI reasoning
+      assert.equal(argv.includes('-c'), false);
+      assert.equal(argv.some((arg) => arg.includes('model_reasoning_effort')), false);
       assert.equal(argv.some((arg) => arg.includes('model_instructions_file=')), true);
 
       await shutdownTeam(runtime.teamName, cwd, { force: true });
@@ -934,12 +942,13 @@ process.on('SIGTERM', () => process.exit(0));
       assert.ok(worker2Args, 'worker-2 argv capture file should be written');
       const worker1Joined = worker1Args!.join(' ');
       const worker2Joined = worker2Args!.join(' ');
-      assert.match(worker1Joined, /model_reasoning_effort="medium"/);
+      // Note: model_reasoning_effort is silently ignored as Qwen Code does not support CLI reasoning
+      assert.doesNotMatch(worker1Joined, /model_reasoning_effort=/);
       assert.match(worker1Joined, /model_instructions_file=.*worker-1\/AGENTS\.md/);
-      assert.match(worker1Joined, /--model qwen3.6-plus/);
-      assert.match(worker2Joined, /model_reasoning_effort="high"/);
+      assert.match(worker1Joined, /--model qwen3\.6-plus/);
+      assert.doesNotMatch(worker2Joined, /model_reasoning_effort=/);
       assert.match(worker2Joined, /model_instructions_file=.*worker-2\/AGENTS\.md/);
-      assert.match(worker2Joined, /--model qwen3.6-flash/);
+      assert.match(worker2Joined, /--model qwen3\.6-flash/);
 
       await shutdownTeam(runtime.teamName, cwd, { force: true });
       runtime = null;
