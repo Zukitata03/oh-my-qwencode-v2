@@ -93,8 +93,8 @@ OMQ 现在包含用于插件脚手架和验证的 `omq hooks`。
 
 ```bash
 --yolo
---high
---xhigh
+--high        # 保留以向后兼容，需在 settings.json 中配置 model_reasoning_effort
+--xhigh       # 保留以向后兼容，需在 settings.json 中配置 model_reasoning_effort
 --madmax
 --force
 --dry-run
@@ -102,8 +102,11 @@ OMQ 现在包含用于插件脚手架和验证的 `omq hooks`。
 --scope <user|project>  # 仅用于 setup
 ```
 
-`--madmax` 映射到 Qwen Code `--dangerously-bypass-approvals-and-sandbox`。
-仅在可信/外部沙箱环境中使用。
+`--madmax` 映射到 Qwen Code `--approval-mode yolo`。
+仅在可信环境中使用。
+
+**注意**：`--high` 和 `--xhigh` 标志保留以向后兼容，但 Qwen Code 0.14.0+ 不再支持通过 CLI 配置 reasoning_effort。
+如需配置推理能力，请在 `~/.qwen/settings.json` 中设置 `model_reasoning_effort`。
 
 ### MCP workingDirectory 策略（可选加固）
 

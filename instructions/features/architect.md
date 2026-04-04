@@ -268,7 +268,7 @@ $architect "为什么这里选择 REST 而不是 GraphQL？"
 [omq.roles.architect]
 defaultTier = "STANDARD"
 defaultModel = "qwen3.6-plus"
-defaultReasoningEffort = "high"
+# Note: defaultReasoningEffort is configured in ~/.qwen/settings.json, not here
 ```
 
 ---

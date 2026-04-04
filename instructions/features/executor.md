@@ -263,7 +263,7 @@ $executor "在 src/auth/register.ts 中实现注册逻辑，参考现有的 logi
 [omq.roles.executor]
 defaultTier = "STANDARD"
 defaultModel = "qwen3.6-plus"
-defaultReasoningEffort = "medium"
+# Note: defaultReasoningEffort is configured in ~/.qwen/settings.json, not here
 ```
 
 ---
