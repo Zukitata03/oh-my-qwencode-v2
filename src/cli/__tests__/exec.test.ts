@@ -52,14 +52,20 @@ describe('omq exec', () => {
         [
           '#!/bin/sh',
           'printf \'fake-qwen:%s\\n\' "$*"',
+          'next_is_file=0',
           'for arg in "$@"; do',
+          '  if [ "$next_is_file" = "1" ]; then',
+          '    file=$(printf %s "$arg" | sed \'s/^See instructions in file: //\')',
+          '    printf \'instructions-path:%s\\n\' "$file"',
+          '    printf \'instructions-start\\n\'',
+          '    cat "$file"',
+          '    printf \'instructions-end\\n\'',
+          '    next_is_file=0',
+          '    continue',
+          '  fi',
           '  case "$arg" in',
-          '    model_instructions_file=*)',
-          '      file=$(printf %s "$arg" | sed \'s/^model_instructions_file="//; s/"$//\')',
-          '      printf \'instructions-path:%s\\n\' "$file"',
-          '      printf \'instructions-start\\n\'',
-          '      cat "$file"',
-          '      printf \'instructions-end\\n\'',
+          '    --append-system-prompt)',
+          '      next_is_file=1',
           '      ;;',
           '  esac',
           'done',
@@ -79,6 +85,7 @@ describe('omq exec', () => {
       assert.equal(result.status, 0, result.error || result.stderr || result.stdout);
       assert.match(result.stdout, /fake-qwen:exec --model gpt-5 say hi /);
       assert.match(result.stdout, /instructions-path:.*\/\.omq\/state\/sessions\/omq-.*\/AGENTS\.md/);
+      assert.match(result.stdout, /instructions-start/);
       assert.match(result.stdout, /# User Instructions/);
       assert.match(result.stdout, /# Project Instructions/);
       assert.match(result.stdout, /<!-- OMQ:RUNTIME:START -->/);

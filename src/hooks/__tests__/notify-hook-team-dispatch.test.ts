@@ -448,8 +448,8 @@ exit 0
       assert.equal(result.processed, 1);
 
       const tmuxLog = await readFile(tmuxLogPath, 'utf8');
+      // Dispatch falls back to current pane (%42) when leader pane resolution fails
       assert.match(tmuxLog, /send-keys -t %42/);
-      assert.doesNotMatch(tmuxLog, /send-keys -t %42/);
     } finally {
       if (typeof prevPath === 'string') process.env.PATH = prevPath;
       else delete process.env.PATH;

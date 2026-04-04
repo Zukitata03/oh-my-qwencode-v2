@@ -50,7 +50,8 @@ function expectedLowComplexityModel(qwenHomeOverride?: string): string {
 describe("normalizeQwenLaunchArgs", () => {
   it("maps --madmax to qwen bypass flag", () => {
     assert.deepEqual(normalizeQwenLaunchArgs(["--madmax"]), [
-      "--dangerously-bypass-approvals-and-sandbox",
+      "--approval-mode",
+      "yolo",
     ]);
   });
 
@@ -61,7 +62,8 @@ describe("normalizeQwenLaunchArgs", () => {
         "--model",
         "gpt-5",
         "--yolo",
-        "--dangerously-bypass-approvals-and-sandbox",
+        "--approval-mode",
+        "yolo",
       ],
     );
   });
@@ -69,10 +71,11 @@ describe("normalizeQwenLaunchArgs", () => {
   it("avoids duplicate bypass flags when both are present", () => {
     assert.deepEqual(
       normalizeQwenLaunchArgs([
-        "--dangerously-bypass-approvals-and-sandbox",
+        "--approval-mode",
+        "yolo",
         "--madmax",
       ]),
-      ["--dangerously-bypass-approvals-and-sandbox"],
+      ["--approval-mode", "yolo"],
     );
   });
 
@@ -80,11 +83,13 @@ describe("normalizeQwenLaunchArgs", () => {
     assert.deepEqual(
       normalizeQwenLaunchArgs([
         "--madmax",
-        "--dangerously-bypass-approvals-and-sandbox",
+        "--approval-mode",
+        "yolo",
         "--madmax",
-        "--dangerously-bypass-approvals-and-sandbox",
+        "--approval-mode",
+        "yolo",
       ]),
-      ["--dangerously-bypass-approvals-and-sandbox"],
+      ["--approval-mode", "yolo"],
     );
   });
 
@@ -96,32 +101,22 @@ describe("normalizeQwenLaunchArgs", () => {
     ]);
   });
 
-  it("maps --high to reasoning override", () => {
-    assert.deepEqual(normalizeQwenLaunchArgs(["--high"]), [
-      "-c",
-      'model_reasoning_effort="high"',
-    ]);
+  it("maps --high to reasoning override (silently consumed for backward compatibility)", () => {
+    assert.deepEqual(normalizeQwenLaunchArgs(["--high"]), []);
   });
 
-  it("maps --xhigh to reasoning override", () => {
-    assert.deepEqual(normalizeQwenLaunchArgs(["--xhigh"]), [
-      "-c",
-      'model_reasoning_effort="xhigh"',
-    ]);
+  it("maps --xhigh to reasoning override (silently consumed for backward compatibility)", () => {
+    assert.deepEqual(normalizeQwenLaunchArgs(["--xhigh"]), []);
   });
 
-  it("uses the last reasoning shorthand when both are present", () => {
-    assert.deepEqual(normalizeQwenLaunchArgs(["--high", "--xhigh"]), [
-      "-c",
-      'model_reasoning_effort="xhigh"',
-    ]);
+  it("uses the last reasoning shorthand when both are present (silently consumed for backward compatibility)", () => {
+    assert.deepEqual(normalizeQwenLaunchArgs(["--high", "--xhigh"]), []);
   });
 
-  it("maps --xhigh --madmax to qwen-native flags only", () => {
+  it("maps --xhigh --madmax to qwen-native flags only (reasoning flags silently consumed)", () => {
     assert.deepEqual(normalizeQwenLaunchArgs(["--xhigh", "--madmax"]), [
-      "--dangerously-bypass-approvals-and-sandbox",
-      "-c",
-      'model_reasoning_effort="xhigh"',
+      "--approval-mode",
+      "yolo",
     ]);
   });
 
@@ -137,13 +132,15 @@ describe("normalizeQwenLaunchArgs", () => {
 
   it("--madmax-spark adds bypass flag to leader args and is otherwise consumed", () => {
     assert.deepEqual(normalizeQwenLaunchArgs(["--madmax-spark"]), [
-      "--dangerously-bypass-approvals-and-sandbox",
+      "--approval-mode",
+      "yolo",
     ]);
   });
 
   it("--madmax-spark deduplicates bypass when --madmax also present", () => {
     assert.deepEqual(normalizeQwenLaunchArgs(["--madmax", "--madmax-spark"]), [
-      "--dangerously-bypass-approvals-and-sandbox",
+      "--approval-mode",
+      "yolo",
     ]);
   });
 
@@ -877,7 +874,7 @@ describe("detached tmux new-session sequencing", () => {
     const steps = buildDetachedSessionBootstrapSteps(
       "omq-demo",
       "C:/project",
-      "'qwen' '--dangerously-bypass-approvals-and-sandbox'",
+      "'qwen' '--approval-mode' 'yolo'",
       hudCmd,
       "--model gpt-5",
       "C:/qwen-home",
@@ -1037,11 +1034,10 @@ describe("buildTmuxShellCommand", () => {
   it("preserves quoted config values for tmux shell-command execution", () => {
     assert.equal(
       buildTmuxShellCommand("qwen", [
-        "--dangerously-bypass-approvals-and-sandbox",
-        "-c",
-        'model_reasoning_effort="xhigh"',
+        "--approval-mode",
+        "yolo",
       ]),
-      `'qwen' '--dangerously-bypass-approvals-and-sandbox' '-c' 'model_reasoning_effort="xhigh"'`,
+      `'qwen' '--approval-mode' 'yolo'`,
     );
   });
 });
@@ -1093,9 +1089,8 @@ describe("buildTmuxPaneCommand", () => {
 describe("buildWindowsPromptCommand", () => {
   it("encodes detached Windows commands for safe PowerShell prompt injection", () => {
     const result = buildWindowsPromptCommand("qwen", [
-      "--dangerously-bypass-approvals-and-sandbox",
-      "-c",
-      'model_reasoning_effort="high"',
+      "--approval-mode",
+      "yolo",
       "it's",
     ]);
     const prefix = "powershell.exe -NoLogo -NoExit -EncodedCommand ";
@@ -1104,7 +1099,7 @@ describe("buildWindowsPromptCommand", () => {
     const decoded = Buffer.from(payload, "base64").toString("utf16le");
     assert.equal(
       decoded,
-      "$ErrorActionPreference = 'Stop'; & { & 'qwen' '--dangerously-bypass-approvals-and-sandbox' '-c' 'model_reasoning_effort=\"high\"' 'it''s' }",
+      "$ErrorActionPreference = 'Stop'; & { & 'qwen' '--approval-mode' 'yolo' 'it''s' }",
     );
   });
 });
@@ -1157,16 +1152,14 @@ describe("team worker launch arg inheritance helpers", () => {
   it("collectInheritableTeamWorkerArgs extracts bypass, reasoning, and model overrides", () => {
     assert.deepEqual(
       collectInheritableTeamWorkerArgs([
-        "--dangerously-bypass-approvals-and-sandbox",
-        "-c",
-        'model_reasoning_effort="xhigh"',
+        "--approval-mode",
+        "yolo",
         "--model",
         "gpt-5",
       ]),
       [
-        "--dangerously-bypass-approvals-and-sandbox",
-        "-c",
-        'model_reasoning_effort="xhigh"',
+        "--approval-mode",
+        "yolo",
         "--model",
         "gpt-5",
       ],
@@ -1183,17 +1176,16 @@ describe("team worker launch arg inheritance helpers", () => {
   it("resolveTeamWorkerLaunchArgsEnv merges and normalizes with de-dupe + last reasoning/model wins", () => {
     assert.equal(
       resolveTeamWorkerLaunchArgsEnv(
-        '--dangerously-bypass-approvals-and-sandbox -c model_reasoning_effort="high" --model old-a --no-alt-screen --model=old-b',
+        '--approval-mode yolo --model old-a --no-alt-screen --model=old-b',
         [
-          "-c",
-          'model_reasoning_effort="xhigh"',
-          "--dangerously-bypass-approvals-and-sandbox",
+          "--approval-mode",
+          "yolo",
           "--model",
           "gpt-5",
         ],
         true,
       ),
-      '--no-alt-screen --dangerously-bypass-approvals-and-sandbox -c model_reasoning_effort="xhigh" --model old-b',
+      '--no-alt-screen --approval-mode yolo --model old-b',
     );
   });
 
@@ -1202,9 +1194,8 @@ describe("team worker launch arg inheritance helpers", () => {
       resolveTeamWorkerLaunchArgsEnv(
         "--no-alt-screen",
         [
-          "--dangerously-bypass-approvals-and-sandbox",
-          "-c",
-          'model_reasoning_effort="xhigh"',
+          "--approval-mode",
+          "yolo",
         ],
         false,
       ),
@@ -1227,11 +1218,11 @@ describe("team worker launch arg inheritance helpers", () => {
     assert.equal(
       resolveTeamWorkerLaunchArgsEnv(
         "--no-alt-screen",
-        ["--dangerously-bypass-approvals-and-sandbox"],
+        ["--approval-mode", "yolo"],
         true,
         DEFAULT_FRONTIER_MODEL,
       ),
-      `--no-alt-screen --dangerously-bypass-approvals-and-sandbox --model ${'qwen3.6-plus'}`,
+      `--no-alt-screen --approval-mode yolo --model ${'qwen3.6-plus'}`,
     );
   });
 
@@ -1288,8 +1279,8 @@ describe("injectModelInstructionsBypassArgs", () => {
     assert.deepEqual(args, [
       "--model",
       "gpt-5",
-      "-c",
-      'model_instructions_file="/tmp/my-project/AGENTS.md"',
+      "--append-system-prompt",
+      "See instructions in file: /tmp/my-project/AGENTS.md",
     ]);
   });
 
@@ -1305,10 +1296,10 @@ describe("injectModelInstructionsBypassArgs", () => {
   it("does not append when model_instructions_file is already set", () => {
     const args = injectModelInstructionsBypassArgs(
       "/tmp/my-project",
-      ["-c", 'model_instructions_file="/tmp/custom.md"'],
+      ["--append-system-prompt", "See instructions in file: /tmp/custom.md"],
       {},
     );
-    assert.deepEqual(args, ["-c", 'model_instructions_file="/tmp/custom.md"']);
+    assert.deepEqual(args, ["--append-system-prompt", "See instructions in file: /tmp/custom.md"]);
   });
 
   it("respects OMQ_MODEL_INSTRUCTIONS_FILE env override", () => {
@@ -1316,8 +1307,8 @@ describe("injectModelInstructionsBypassArgs", () => {
       OMQ_MODEL_INSTRUCTIONS_FILE: "/tmp/alt instructions.md",
     });
     assert.deepEqual(args, [
-      "-c",
-      'model_instructions_file="/tmp/alt instructions.md"',
+      "--append-system-prompt",
+      "See instructions in file: /tmp/alt instructions.md",
     ]);
   });
 
@@ -1331,8 +1322,8 @@ describe("injectModelInstructionsBypassArgs", () => {
     assert.deepEqual(args, [
       "--model",
       "gpt-5",
-      "-c",
-      'model_instructions_file="/tmp/my-project/.omq/state/sessions/session-1/AGENTS.md"',
+      "--append-system-prompt",
+      "See instructions in file: /tmp/my-project/.omq/state/sessions/session-1/AGENTS.md",
     ]);
   });
 });

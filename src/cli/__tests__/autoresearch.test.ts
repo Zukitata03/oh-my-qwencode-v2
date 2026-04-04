@@ -56,15 +56,15 @@ async function initRepo(): Promise<string> {
 
 describe('normalizeAutoresearchQwenArgs', () => {
   it('adds sandbox bypass by default for autoresearch workers', () => {
-    assert.deepEqual(normalizeAutoresearchQwenArgs(['--model', 'gpt-5']), ['--model', 'gpt-5', '--dangerously-bypass-approvals-and-sandbox']);
+    assert.deepEqual(normalizeAutoresearchQwenArgs(['--model', 'gpt-5']), ['--model', 'gpt-5', '--approval-mode', 'yolo']);
   });
 
   it('deduplicates explicit bypass flags', () => {
-    assert.deepEqual(normalizeAutoresearchQwenArgs(['--dangerously-bypass-approvals-and-sandbox']), ['--dangerously-bypass-approvals-and-sandbox']);
+    assert.deepEqual(normalizeAutoresearchQwenArgs(['--approval-mode', 'yolo']), ['--approval-mode', 'yolo']);
   });
 
   it('normalizes --madmax to the canonical bypass flag', () => {
-    assert.deepEqual(normalizeAutoresearchQwenArgs(['--madmax']), ['--dangerously-bypass-approvals-and-sandbox']);
+    assert.deepEqual(normalizeAutoresearchQwenArgs(['--madmax']), ['--approval-mode', 'yolo']);
   });
 });
 
@@ -764,12 +764,12 @@ printf '{\\n  "status": "abort",\\n  "candidate_commit": null,\\n  "base_commit"
 
       const result = runOmq(
         repo,
-        ['autoresearch', missionDir, '--dangerously-bypass-approvals-and-sandbox'],
+        ['autoresearch', missionDir, '--approval-mode', 'yolo'],
         { PATH: `${fakeBin}:${process.env.PATH || ''}`, OMQ_TEST_REPO_ROOT: repo },
       );
 
       assert.equal(result.status, 0, result.stderr || result.stdout);
-      assert.match(result.stderr, /fake-qwen:exec --dangerously-bypass-approvals-and-sandbox -/);
+      assert.match(result.stderr, /fake-qwen:exec --approval-mode yolo -/);
     } finally {
       await rm(repo, { recursive: true, force: true });
       await rm(fakeBin, { recursive: true, force: true });
@@ -817,7 +817,7 @@ EOF
 
       const result = runOmq(
         repo,
-        ['autoresearch', missionDir, '--dangerously-bypass-approvals-and-sandbox'],
+        ['autoresearch', missionDir, '--approval-mode', 'yolo'],
         { PATH: `${fakeBin}:${process.env.PATH || ''}`, OMQ_TEST_REPO_ROOT: repo },
       );
 

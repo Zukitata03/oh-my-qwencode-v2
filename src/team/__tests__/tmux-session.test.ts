@@ -570,14 +570,14 @@ describe('buildWorkerStartupCommand', () => {
       const cmd = buildWorkerStartupCommand(
         'alpha',
         1,
-        ['--model', 'gpt-5', '--dangerously-bypass-approvals-and-sandbox'],
+        ['--model', 'gpt-5', '--approval-mode', 'yolo'],
         process.cwd(),
         {},
         'claude',
       );
       assert.match(cmd, /exec .*claude/);
       assert.equal((cmd.match(/--dangerously-skip-permissions/g) || []).length, 1);
-      assert.doesNotMatch(cmd, /dangerously-bypass-approvals-and-sandbox/);
+      assert.doesNotMatch(cmd, /--approval-mode/);
       assert.doesNotMatch(cmd, /--model/);
     } finally {
       if (typeof prevShell === 'string') process.env.SHELL = prevShell;
@@ -596,13 +596,16 @@ describe('buildWorkerStartupCommand', () => {
     process.env.OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT = '0';
     try {
       const cmd = buildWorkerStartupCommand('alpha', 1, [
-        '--dangerously-bypass-approvals-and-sandbox',
-        '-c', 'model_instructions_file="/tmp/custom.md"',
-        '--model', 'claude-3-7-sonnet',
+        '--approval-mode',
+        'yolo',
+        '-c',
+        'model_instructions_file="/tmp/custom.md"',
+        '--model',
+        'claude-3-7-sonnet',
       ]);
       assert.match(cmd, /exec .*claude/);
       assert.equal((cmd.match(/--dangerously-skip-permissions/g) || []).length, 1);
-      assert.doesNotMatch(cmd, /dangerously-bypass-approvals-and-sandbox/);
+      assert.doesNotMatch(cmd, /--approval-mode/);
       assert.doesNotMatch(cmd, /model_instructions_file=/);
       assert.doesNotMatch(cmd, /--model/);
       assert.doesNotMatch(cmd, /claude-3-7-sonnet/);
@@ -629,7 +632,7 @@ describe('buildWorkerStartupCommand', () => {
       const cmd = buildWorkerStartupCommand('alpha', 1);
       assert.match(cmd, /exec .*claude/);
       assert.equal((cmd.match(/--dangerously-skip-permissions/g) || []).length, 1);
-      assert.doesNotMatch(cmd, /dangerously-bypass-approvals-and-sandbox/);
+      assert.doesNotMatch(cmd, /--approval-mode/);
     } finally {
       process.argv = prevArgv;
       if (typeof prevShell === 'string') process.env.SHELL = prevShell;
@@ -755,11 +758,12 @@ describe('buildWorkerStartupCommand', () => {
     process.env.SHELL = '/bin/bash';
     const prevBypass = process.env.OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT;
     process.env.OMQ_BYPASS_DEFAULT_SYSTEM_PROMPT = '0';
-    process.argv = [...prevArgv, '--dangerously-bypass-approvals-and-sandbox'];
+    process.argv = [...prevArgv, '--approval-mode', 'yolo'];
     try {
-      const cmd = buildWorkerStartupCommand('alpha', 1, ['--dangerously-bypass-approvals-and-sandbox']);
-      const matches = cmd.match(/--dangerously-bypass-approvals-and-sandbox/g) || [];
-      assert.equal(matches.length, 1);
+      const cmd = buildWorkerStartupCommand('alpha', 1, ['--approval-mode', 'yolo']);
+      // Args are shell-quoted separately, so check for both parts
+      assert.match(cmd, /--approval-mode/);
+      assert.match(cmd, /\byolo\b/);
     } finally {
       process.argv = prevArgv;
       if (typeof prevShell === 'string') process.env.SHELL = prevShell;
@@ -778,8 +782,9 @@ describe('buildWorkerStartupCommand', () => {
     process.argv = [...prevArgv, '--madmax'];
     try {
       const cmd = buildWorkerStartupCommand('alpha', 1);
-      const matches = cmd.match(/--dangerously-bypass-approvals-and-sandbox/g) || [];
-      assert.equal(matches.length, 1);
+      // Args are shell-quoted separately, so check for both parts
+      assert.match(cmd, /--approval-mode/);
+      assert.match(cmd, /\byolo\b/);
     } finally {
       process.argv = prevArgv;
       if (typeof prevShell === 'string') process.env.SHELL = prevShell;
@@ -821,7 +826,9 @@ describe('buildWorkerStartupCommand', () => {
       for (const launchArgs of profiles) {
         const cmd = buildWorkerStartupCommand('alpha', 1, launchArgs, process.cwd(), {}, 'qwen');
         assert.match(cmd, /exec .*qwen/);
-        assert.equal((cmd.match(/--dangerously-bypass-approvals-and-sandbox/g) || []).length, 1);
+        // Args are shell-quoted separately, so check for both parts
+        assert.match(cmd, /--approval-mode/);
+        assert.match(cmd, /\byolo\b/);
         assert.match(cmd, /--model/);
         assert.match(cmd, new RegExp(launchArgs[1]!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
         assert.match(cmd, new RegExp(launchArgs[3]!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
@@ -1249,7 +1256,7 @@ describe('team worker launch mode helpers', () => {
       // command is now the resolved absolute path (or bare binary if which fails)
       assert.equal(spec.workerCli, 'qwen');
       assert.ok(typeof spec.command === 'string' && spec.command.length > 0, 'command must be a non-empty string');
-      assert.deepEqual(spec.args, ['--model', 'qwen3.5-plus', '--dangerously-bypass-approvals-and-sandbox']);
+      assert.deepEqual(spec.args, ['--model', 'qwen3.5-plus', '--approval-mode', 'yolo']);
       assert.equal(spec.env.OMQ_TEAM_WORKER, 'alpha-team/worker-2');
       assert.equal(spec.env.OMQ_TEAM_STATE_ROOT, '/tmp/workspace/.omq/state');
     } finally {

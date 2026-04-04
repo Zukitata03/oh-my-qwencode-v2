@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import {
   QWEN_BYPASS_FLAG,
+  QWEN_BYPASS_VALUE,
   MADMAX_FLAG,
   CONFIG_FLAG,
   LONG_CONFIG_FLAG,
@@ -617,9 +618,14 @@ function buildModelInstructionsOverride(cwd: string, env: NodeJS.ProcessEnv): st
 
 function resolveWorkerLaunchArgs(extraArgs: string[] = [], cwd: string = process.cwd(), env: NodeJS.ProcessEnv = process.env): string[] {
   const merged = [...extraArgs];
-  const wantsBypass = process.argv.includes(QWEN_BYPASS_FLAG) || process.argv.includes(MADMAX_FLAG);
+  // Check for bypass in process.argv or OMQ_TEAM_WORKER_LAUNCH_ARGS env
+  const launchArgsEnv = (env.OMQ_TEAM_WORKER_LAUNCH_ARGS || '').trim();
+  const wantsBypass = process.argv.includes(QWEN_BYPASS_FLAG) 
+    || process.argv.includes(MADMAX_FLAG)
+    || launchArgsEnv.includes(QWEN_BYPASS_FLAG)
+    || launchArgsEnv.includes(MADMAX_FLAG);
   if (wantsBypass && !merged.includes(QWEN_BYPASS_FLAG)) {
-    merged.push(QWEN_BYPASS_FLAG);
+    merged.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
   }
   if (shouldBypassDefaultSystemPrompt(env) && !hasModelInstructionsOverride(merged)) {
     merged.push(CONFIG_FLAG, buildModelInstructionsOverride(cwd, env));
@@ -671,7 +677,7 @@ export function buildWorkerProcessLaunchSpec(
   const workerCli = workerCliOverride ?? resolveTeamWorkerCli(fullLaunchArgs, effectiveEnv);
   const cliLaunchArgs = translateWorkerLaunchArgsForCli(workerCli, fullLaunchArgs, initialPrompt);
   const effectiveCliLaunchArgs = workerCli === 'qwen' && !cliLaunchArgs.includes(QWEN_BYPASS_FLAG)
-    ? [...cliLaunchArgs, QWEN_BYPASS_FLAG]
+    ? [...cliLaunchArgs, QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE]
     : cliLaunchArgs;
 
   const resolvedCliPath = resolveAbsoluteBinaryPath(workerCli);

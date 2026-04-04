@@ -1003,8 +1003,16 @@ export function normalizeQwenLaunchArgs(args: string[]): string[] {
   let wantsBypass = false;
   let hasBypass = false;
   let reasoningMode: ReasoningMode | null = null;
+  let skipNextValue = false;
 
-  for (const arg of parsed.remainingArgs) {
+  for (let i = 0; i < parsed.remainingArgs.length; i++) {
+    const arg = parsed.remainingArgs[i];
+    
+    if (skipNextValue) {
+      skipNextValue = false;
+      continue;
+    }
+    
     if (arg === MADMAX_FLAG) {
       wantsBypass = true;
       continue;
@@ -1015,6 +1023,10 @@ export function normalizeQwenLaunchArgs(args: string[]): string[] {
       if (!hasBypass) {
         normalized.push(arg, QWEN_BYPASS_VALUE);
         hasBypass = true;
+      }
+      // Skip the next arg if it's 'yolo' (the value for --approval-mode)
+      if (parsed.remainingArgs[i + 1] === 'yolo') {
+        skipNextValue = true;
       }
       continue;
     }
@@ -1096,6 +1108,11 @@ function hasModelInstructionsOverride(args: string[]): boolean {
     if (arg.startsWith(`${LONG_CONFIG_FLAG}=`)) {
       const inlineValue = arg.slice(`${LONG_CONFIG_FLAG}=`.length);
       if (isModelInstructionsOverride(inlineValue)) return true;
+    }
+    
+    // Check for --append-system-prompt flag (new format)
+    if (arg === '--append-system-prompt') {
+      return true;
     }
   }
   return false;

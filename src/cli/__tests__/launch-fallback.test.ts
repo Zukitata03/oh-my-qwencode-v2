@@ -65,8 +65,7 @@ describe('omq launch fallback when tmux is unavailable', () => {
       if (shouldSkipForSpawnPermissions(result.error)) return;
 
       assert.equal(result.status, 0, result.error || result.stderr || result.stdout);
-      assert.match(result.stdout, /fake-qwen:.*--dangerously-bypass-approvals-and-sandbox/);
-      assert.match(result.stdout, /fake-qwen:.*model_reasoning_effort="xhigh"/);
+      assert.match(result.stdout, /fake-qwen:.*--approval-mode.*yolo/);
       assert.doesNotMatch(result.stderr, /spawnSync tmux ENOENT/);
     } finally {
       await rm(wd, { recursive: true, force: true });

@@ -807,8 +807,11 @@ process.on('SIGTERM', () => process.exit(0));
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
       assert.ok(argv, 'qwen argv capture file should be written');
-      assert.equal(argv.includes('--dangerously-bypass-approvals-and-sandbox'), true);
-      assert.equal(argv.filter((arg) => arg === '--dangerously-bypass-approvals-and-sandbox').length, 1);
+      assert.equal(argv.includes('--approval-mode'), true);
+      assert.equal(argv.includes('yolo'), true);
+      // Note: --approval-mode and yolo are separate argv entries
+      assert.equal(argv.filter((arg) => arg === '--approval-mode').length, 1);
+      assert.equal(argv.filter((arg) => arg === 'yolo').length, 1);
       assert.equal(argv.includes('--model'), true);
       assert.equal(argv[argv.indexOf('--model') + 1], 'qwen3.5-plus');
       assert.equal(argv.includes('-c'), true);

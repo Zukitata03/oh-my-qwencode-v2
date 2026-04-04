@@ -24,7 +24,7 @@ import {
   listAutoresearchDeepInterviewResultPaths,
   resolveAutoresearchDeepInterviewResult,
 } from './autoresearch-intake.js';
-import { QWEN_BYPASS_FLAG, MADMAX_FLAG } from './constants.js';
+import { QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE, MADMAX_FLAG } from './constants.js';
 import { restoreStandaloneHudPane, enableMouseScrolling } from '../team/tmux-session.js';
 
 export const AUTORESEARCH_HELP = `omq autoresearch - Launch OMQ autoresearch with thin-supervisor parity semantics
@@ -121,27 +121,43 @@ async function runGuidedAutoresearchDeepInterview(
 export function normalizeAutoresearchQwenArgs(qwenArgs: readonly string[]): string[] {
   const normalized: string[] = [];
   let hasBypass = false;
+  let skipNextValue = false;
 
-  for (const arg of qwenArgs) {
+  for (let i = 0; i < qwenArgs.length; i++) {
+    const arg = qwenArgs[i];
+    
+    if (skipNextValue) {
+      skipNextValue = false;
+      continue;
+    }
+    
     if (arg === MADMAX_FLAG) {
       if (!hasBypass) {
-        normalized.push(QWEN_BYPASS_FLAG);
+        normalized.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
         hasBypass = true;
       }
       continue;
     }
     if (arg === QWEN_BYPASS_FLAG) {
       if (!hasBypass) {
-        normalized.push(arg);
+        normalized.push(arg, QWEN_BYPASS_VALUE);
         hasBypass = true;
       }
+      // Skip the 'yolo' value that follows --approval-mode
+      if (qwenArgs[i + 1] === 'yolo') {
+        skipNextValue = true;
+      }
+      continue;
+    }
+    // Skip 'yolo' if it's the value for --approval-mode (already added)
+    if (arg === 'yolo' && hasBypass) {
       continue;
     }
     normalized.push(arg);
   }
 
   if (!hasBypass) {
-    normalized.push(QWEN_BYPASS_FLAG);
+    normalized.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
   }
 
   return normalized;

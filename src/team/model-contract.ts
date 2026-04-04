@@ -7,7 +7,8 @@ import {
 } from '../config/models.js';
 
 const MADMAX_FLAG = '--madmax';
-const QWEN_BYPASS_FLAG = '--dangerously-bypass-approvals-and-sandbox';
+const QWEN_BYPASS_FLAG = '--approval-mode';
+const QWEN_BYPASS_VALUE = 'yolo';
 const MODEL_FLAG = '--model';
 const CONFIG_FLAG = '-c';
 const REASONING_KEY = 'model_reasoning_effort';
@@ -77,6 +78,10 @@ export function parseTeamWorkerLaunchArgs(args: string[]): ParsedTeamWorkerLaunc
     const arg = args[i];
     if (arg === QWEN_BYPASS_FLAG || arg === MADMAX_FLAG) {
       wantsBypass = true;
+      // Check if next arg is 'yolo' (the value for --approval-mode)
+      if (args[i + 1] === 'yolo') {
+        i += 1;
+      }
       continue;
     }
 
@@ -123,7 +128,9 @@ export function collectInheritableTeamWorkerArgs(qwenArgs: string[]): string[] {
   const parsed = parseTeamWorkerLaunchArgs(qwenArgs);
 
   const inherited: string[] = [];
-  if (parsed.wantsBypass) inherited.push(QWEN_BYPASS_FLAG);
+  if (parsed.wantsBypass) {
+    inherited.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
+  }
   if (parsed.reasoningOverride) inherited.push(CONFIG_FLAG, parsed.reasoningOverride);
   if (parsed.modelOverride) inherited.push(MODEL_FLAG, parsed.modelOverride);
   return inherited;
@@ -137,7 +144,9 @@ export function normalizeTeamWorkerLaunchArgs(
   const parsed = parseTeamWorkerLaunchArgs(args);
   const normalized = [...parsed.passthrough];
 
-  if (parsed.wantsBypass) normalized.push(QWEN_BYPASS_FLAG);
+  if (parsed.wantsBypass) {
+    normalized.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
+  }
 
   const selectedReasoning = parsed.reasoningOverride
     ?? (normalizeOptionalReasoning(preferredReasoning)

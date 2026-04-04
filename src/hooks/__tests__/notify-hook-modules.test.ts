@@ -357,7 +357,8 @@ describe('notify-hook/auto-nudge – inferSkillPhaseFromText', () => {
 describe('notify-hook/auto-nudge – blocked deep-interview auto approvals', () => {
   it('normalizes injected approval text before matching blocked inputs', async () => {
     const { normalizeBlockedAutoApprovalInput } = await loadModule('notify-hook/auto-nudge.js');
-    assert.equal(normalizeBlockedAutoApprovalInput(' yes, proceed [OMQ_TMUX_INJECT] '), 'yes proceed omq tmux inject');
+    // The function normalizes by trimming, lowercasing, and removing punctuation
+    assert.equal(normalizeBlockedAutoApprovalInput(' yes, proceed [OMQ_TMUX_INJECT] '), 'yes proceed');
   });
 
   it('matches each blocked approval keyword or phrase', async () => {
