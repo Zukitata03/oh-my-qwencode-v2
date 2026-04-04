@@ -15,7 +15,7 @@ function expectedLowComplexityModel(): string {
 }
 
 describe('team model contract', () => {
-  it('collects inheritable bypass, reasoning, and model overrides', () => {
+  it('collects inheritable bypass and model overrides (reasoning is ignored)', () => {
     assert.deepEqual(
       collectInheritableTeamWorkerArgs([
         '--approval-mode',
@@ -27,8 +27,6 @@ describe('team model contract', () => {
       [
         '--approval-mode',
         'yolo',
-        '-c',
-        'model_reasoning_effort="xhigh"',
         '--model',
         'gpt-5.3',
       ],
@@ -98,6 +96,16 @@ describe('team model contract', () => {
     );
   });
 
+  it('silently ignores -c model_reasoning_effort as Qwen Code does not support CLI reasoning', () => {
+    assert.deepEqual(
+      resolveTeamWorkerLaunchArgs({
+        existingRaw: '-c model_reasoning_effort="high"',
+        inheritedArgs: ['--model', 'gpt-5'],
+      }),
+      ['--model', 'gpt-5'],
+    );
+  });
+
   it('detects low-complexity agent types', () => {
     assert.equal(isLowComplexityAgentType('explore'), true);
     assert.equal(isLowComplexityAgentType('writer'), false);
@@ -122,15 +130,16 @@ describe('team model contract', () => {
   });
 });
 
-describe('resolveTeamWorkerLaunchArgs - teammate reasoning allocation', () => {
-  it('injects preferred reasoning when explicit reasoning is absent', () => {
+describe('resolveTeamWorkerLaunchArgs - teammate model allocation', () => {
+  it('does not inject reasoning via CLI as Qwen Code does not support it', () => {
     const result = resolveTeamWorkerLaunchArgs({
       fallbackModel: expectedLowComplexityModel(),
       preferredReasoning: 'low',
     });
+    // Reasoning is not passed via CLI - users should configure in settings.json
     assert.deepEqual(
       result,
-      ['-c', 'model_reasoning_effort="low"', '--model', expectedLowComplexityModel()],
+      ['--model', expectedLowComplexityModel()],
     );
   });
 
@@ -142,18 +151,15 @@ describe('resolveTeamWorkerLaunchArgs - teammate reasoning allocation', () => {
     assert.ok(!joined.includes('model_reasoning_effort'), `Expected no auto-injected thinking level in: ${joined}`);
   });
 
-  it('preserves explicit reasoning override over teammate preference', () => {
+  it('silently ignores explicit reasoning override as Qwen Code does not support CLI reasoning', () => {
     const result = resolveTeamWorkerLaunchArgs({
       existingRaw: '-c model_reasoning_effort="high"',
       fallbackModel: expectedLowComplexityModel(),
       preferredReasoning: 'low',
     });
     const joined = result.join(' ');
-    // Should contain the explicit high level
-    assert.ok(joined.includes('model_reasoning_effort="high"'), `Expected explicit high level in: ${joined}`);
-    // Should appear exactly once
-    const matches = joined.match(/model_reasoning_effort/g) ?? [];
-    assert.equal(matches.length, 1, 'reasoning override should appear exactly once');
+    // Should NOT contain reasoning as it's silently ignored
+    assert.ok(!joined.includes('model_reasoning_effort'), `Expected no reasoning in: ${joined}`);
   });
 
   it('does not inject thinking when model is explicit but reasoning is omitted', () => {

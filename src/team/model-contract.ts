@@ -71,7 +71,6 @@ export function splitWorkerLaunchArgs(raw: string | undefined): string[] {
 export function parseTeamWorkerLaunchArgs(args: string[]): ParsedTeamWorkerLaunchArgs {
   const passthrough: string[] = [];
   let wantsBypass = false;
-  let reasoningOverride: string | null = null;
   let modelOverride: string | null = null;
 
   for (let i = 0; i < args.length; i++) {
@@ -104,10 +103,12 @@ export function parseTeamWorkerLaunchArgs(args: string[]): ParsedTeamWorkerLaunc
       continue;
     }
 
+    // Note: -c model_reasoning_effort="..." is not supported by Qwen Code 0.14.0+
+    // These flags are silently ignored. Users should configure reasoning_effort in settings.json instead.
     if (arg === CONFIG_FLAG) {
       const maybeValue = args[i + 1];
       if (typeof maybeValue === 'string' && isReasoningOverride(maybeValue)) {
-        reasoningOverride = maybeValue;
+        // Silently ignore reasoning override
         i += 1;
         continue;
       }
@@ -119,7 +120,7 @@ export function parseTeamWorkerLaunchArgs(args: string[]): ParsedTeamWorkerLaunc
   return {
     passthrough,
     wantsBypass,
-    reasoningOverride,
+    reasoningOverride: null,  // Always null - not supported via CLI
     modelOverride,
   };
 }
@@ -131,7 +132,9 @@ export function collectInheritableTeamWorkerArgs(qwenArgs: string[]): string[] {
   if (parsed.wantsBypass) {
     inherited.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
   }
-  if (parsed.reasoningOverride) inherited.push(CONFIG_FLAG, parsed.reasoningOverride);
+  // Note: model_reasoning_effort is not passed via CLI flags (-c) as Qwen Code 0.14.0+
+  // does not support this. Users should configure reasoning_effort in settings.json instead.
+  // reasoningOverride is intentionally ignored here.
   if (parsed.modelOverride) inherited.push(MODEL_FLAG, parsed.modelOverride);
   return inherited;
 }
@@ -148,11 +151,9 @@ export function normalizeTeamWorkerLaunchArgs(
     normalized.push(QWEN_BYPASS_FLAG, QWEN_BYPASS_VALUE);
   }
 
-  const selectedReasoning = parsed.reasoningOverride
-    ?? (normalizeOptionalReasoning(preferredReasoning)
-      ? `${REASONING_KEY}="${normalizeOptionalReasoning(preferredReasoning)}"`
-      : null);
-  if (selectedReasoning) normalized.push(CONFIG_FLAG, selectedReasoning);
+  // Note: model_reasoning_effort is not passed via CLI flags (-c) as Qwen Code 0.14.0+
+  // does not support this. Users should configure reasoning_effort in settings.json instead.
+  // preferredReasoning parameter is intentionally ignored here.
 
   const selectedModel = normalizeOptionalModel(preferredModel) ?? normalizeOptionalModel(parsed.modelOverride);
   if (selectedModel) normalized.push(MODEL_FLAG, selectedModel);
