@@ -1,9 +1,9 @@
 # oh-my-qwencode (OMQ)
 
-> **Note:** This project is a port of [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) adapted for Qwen Code.
+> A port of [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) adapted for Qwen Code.
 
 <p align="center">
-  <em>Start Qwen Code stronger, then let OMQ add better prompts, workflows, and runtime help when the work grows.</em>
+  <em>Multi-agent orchestration layer for Qwen Code — prompts, skills, safety gates, tmux team runtime, and durable state.</em>
 </p>
 
 [![npm version](https://img.shields.io/npm/v/oh-my-qwencode)](https://www.npmjs.com/package/oh-my-qwencode)
@@ -11,89 +11,118 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 [![Discord](https://img.shields.io/discord/1452487457085063218?color=5865F2&logo=discord&logoColor=white&label=Discord)](https://discord.gg/PUwSMR9XNk)
 
-**Website:** https://chrisxue90.github.io/oh-my-qwencode-website/ _(coming soon)_
-**Docs:** [Getting Started](./docs/getting-started.html) · [Agents](./docs/agents.html) · [Skills](./docs/skills.html) · [Integrations](./docs/integrations.html) · [Demo](./DEMO.md) · [OpenClaw guide](./docs/openclaw-integration.md)
+**Website:** https://chrisxue90.github.io/oh-my-qwencode-website/
+**Docs:** [Getting Started](./docs/getting-started.html) · [Agents](./docs/agents.html) · [Skills](./docs/skills.html) · [Hooks Architecture](./docs/hooks-architecture.md) · [Integrations](./docs/integrations.html) · [Demo](./DEMO.md) · [OpenClaw guide](./docs/openclaw-integration.md)
 
-OMQ is a workflow layer for [Qwen Code](https://github.com/openai/qwen).
+---
 
-It keeps Qwen Code as the execution engine and makes it easier to:
-- start a stronger Qwen Code session by default
-- reuse good role/task invocations with `$name` keywords
-- invoke workflows with skills like `$plan`, `$ralph`, and `$team`
-- keep project guidance, plans, logs, and state in `.omq/`
+## What OMQ Is
 
-## Recommended default flow
+OMQ is a **workflow layer** for [Qwen Code](https://github.com/openai/qwen). It does not replace Qwen Code — it adds a better working layer around it:
 
-If you want the default OMQ experience, start here:
-
-```bash
-npm install -g @openai/qwen oh-my-qwencode
-omq setup
-omq --madmax --high
-```
-
-Then work normally inside Qwen Code:
-
-```text
-$architect "analyze the authentication flow"
-$plan "ship this feature cleanly"
-```
-
-That is the main path.
-Start OMQ strongly, do the work in Qwen Code, and let the agent pull in `$team` or other workflows only when the task actually needs them.
-
-## What OMQ is for
-
-Use OMQ if you already like Qwen Code and want a better day-to-day runtime around it:
-- reusable role/task invocations such as `$architect` and `$executor`
-- reusable workflows such as `$plan`, `$ralph`, `$team`, and `$deep-interview`
-- project guidance through scoped `AGENTS.md`
-- durable state under `.omq/` for plans, logs, memory, and mode tracking
+- **34 agent role prompts** — reusable roles like `$architect`, `$executor`, `$librarian`, `$debugger`
+- **39 skills** — workflows like `$plan`, `$ralph`, `$team`, `$deep-interview`, `$intent-gate`, `$comment-checker`
+- **5-tier hook system** — Core / Guard / Transform / Continuation / Skill hooks with 5 preset bundles (safety, review, memory, telemetry, workspace-context)
+- **tmux team runtime** — durable parallel agent execution with worktrees, git integration, and interop
+- **5 MCP servers** — state, memory, code-intel, trace, and team servers for structured tool access
+- **5 Rust crates** — performance-critical components (explore harness, mux, runtime core, runtime, sparkshell)
+- **Durable state** — plans, logs, memory, mode tracking, and session recovery under `.omq/`
 
 If you want plain Qwen Code with no extra workflow layer, you probably do not need OMQ.
 
-## Quick start
+---
+
+## Quick Start
 
 ### Requirements
 
 - Node.js 20+
 - Qwen Code installed: `npm install -g @openai/qwen`
 - Qwen Code auth configured
-- `tmux` on macOS/Linux if you later want the durable team runtime
-- `psmux` on native Windows if you later want Windows team mode
+- `tmux` on macOS/Linux (for team runtime)
+- `psmux` on native Windows (for Windows team mode)
 
-### A good first session
-
-Launch OMQ the recommended way:
+### Install and Run
 
 ```bash
+npm install -g @openai/qwen oh-my-qwencode
+omq setup
 omq --madmax
-# Note: For reasoning effort, configure model_reasoning_effort in ~/.qwen/settings.json
-# The --high/--xhigh flags are retained for backward compatibility but have no effect
 ```
 
-Then try one role keyword and one workflow skill:
+Then work inside Qwen Code:
 
 ```text
 $architect "analyze the authentication flow"
 $plan "map the safest implementation path"
 ```
 
-If the task grows, the agent can escalate to heavier workflows such as `$ralph` for persistent execution or `$team` for coordinated parallel work.
+If the task grows, the agent escalates to `$ralph` for persistent execution or `$team` for coordinated parallel work.
 
-## A simple mental model
+---
 
-OMQ does **not** replace Qwen Code.
+## What You Get
 
-It adds a better working layer around it:
-- **Qwen Code** does the actual agent work
-- **OMQ role keywords** make useful roles reusable
-- **OMQ skills** make common workflows reusable
-- **`.omq/`** stores plans, logs, memory, and runtime state
+### Agent Roles (34 prompts)
+
+| Tier | Roles |
+|------|-------|
+| **Build** | `explore`, `architect`, `executor`, `debugger`, `planner`, `verifier` |
+| **Review** | `code-reviewer`, `security-reviewer` |
+| **Domain** | `test-engineer`, `dependency-expert`, `designer`, `writer`, `librarian`, `git-master`, `build-fixer` |
+| **Coordination** | `critic`, `vision` |
+
+### Skills (39 installed)
+
+**Core workflows:** `autopilot`, `ralph`, `ultrawork`, `team`, `swarm`, `ultraqa`, `plan`, `deep-interview`, `ralplan`
+
+**Safety & quality:** `intent-gate` (pre-execution intent analysis), `comment-checker` (senior-engine comment standards), `code-review`, `security-review`, `ai-slop-cleaner`
+
+**Shortcuts & utilities:** `analyze`, `deepsearch`, `tdd`, `build-fix`, `cancel`, `note`, `trace`, `init-deep` (hierarchical AGENTS.md generation), `web-clone`, `visual-verdict`, `ecomode`
+
+**Ask & docs:** `ask-claude`, `ask-gemini`, `doctor`, `help`, `skill`, `hud`, `omq-setup`, `configure-notifications`
+
+### Hook Presets (5 bundles)
+
+| Preset | What It Does |
+|--------|-------------|
+| `safety` | Intent gate, comment checker, destructive op guards, pre/post write checks |
+| `review` | Pre-review gates, test verification, API change guard |
+| `memory` | Context injector, project memory, skill reminder |
+| `telemetry` | Keyword detector, context monitor, state persistence, recovery |
+| `workspace-context` | AGENTS.md + rules injection into every session |
+
+### MCP Servers (5 implemented)
+
+| Server | Purpose |
+|--------|---------|
+| `omq_state` | Read/write/clear/list workflow mode state |
+| `omq_memory` | Project memory + session notepad |
+| `omq_code_intel` | LSP-like diagnostics, symbol search, AST pattern matching |
+| `omq_trace` | Agent flow timeline + aggregate stats |
+| `omq_team_run` | Spawn/manage tmux CLI worker teams |
+
+### CLI Surface (24 commands)
+
+`omq setup` · `omq doctor` · `omq team` · `omq ralph` · `omq explore` · `omq sparkshell` · `omq hud` · `omq autoresearch` · `omq agents` · `omq agents-init` · `omq deepinit` · `omq session` · `omq resume` · `omq status` · `omq cancel` · `omq reasoning` · `omq cleanup` · `omq ask` · `omq version` · `omq hooks` · `omq tmux-hook` · `omq uninstall` · `omq exec` · `omq help`
+
+---
+
+## A Simple Mental Model
+
+| Layer | What It Does |
+|-------|-------------|
+| **Qwen Code** | Does the actual agent work |
+| **OMQ role keywords** | Make useful roles reusable (`$architect`, `$executor`, `$librarian`) |
+| **OMQ skills** | Make common workflows reusable (`$plan`, `$ralph`, `$team`) |
+| **OMQ hooks** | Intercept execution for safety, quality, and continuity |
+| **`.omq/`** | Stores plans, logs, memory, hooks state, and runtime state |
 
 Most users should think of OMQ as **better task routing + better workflow + better runtime**, not as a command surface to operate manually all day.
 
-## Start here if you are new
+---
+
+## Start Here If You Are New
 
 1. Run `omq setup`
 2. Launch with `omq --madmax`
@@ -101,30 +130,15 @@ Most users should think of OMQ as **better task routing + better workflow + bett
 4. Ask for planning with `$plan "..."`
 5. Let the agent decide when `$ralph`, `$team`, or another workflow is worth using
 
-## Common in-session surfaces
+Use `$deep-interview` when the request is vague, boundaries are unclear, or you want structured Socratic clarification before committing to `$plan`, `$ralph`, or `$team`.
 
-| Surface | Use it for |
-| --- | --- |
-| `$architect "..."` | analysis, boundaries, tradeoffs |
-| `$executor "..."` | focused implementation work |
-| `/skills` | browsing installed skills |
-| `$plan "..."` | planning before implementation |
-| `$ralph "..."` | persistent sequential execution |
-| `$team "..."` | coordinated parallel execution when the task is big enough |
+Use `$intent-gate` before high-risk operations — it classifies intent, scopes blast radius, assesses risk, and blocks destructive operations without explicit confirmation.
 
-Use `$deep-interview` when the request is still vague, the boundaries are unclear, or you want OMQ to keep pressing on intent, non-goals, and decision boundaries before it hands work off to `$plan`, `$ralph`, `$team`, or `$autopilot`.
+---
 
-Typical cases:
-- vague greenfield ideas that still need sharper intent and scope
-- brownfield changes where OMQ should inspect the repo first, then ask cited confirmation questions
-- requests where you want a one-question-at-a-time clarification loop instead of immediate planning or implementation
-## Advanced / operator surfaces
+## Advanced / Operator Surfaces
 
-These are useful, but they are not the main onboarding path.
-
-### Team runtime
-
-Use the team runtime when you specifically need durable tmux/worktree coordination, not as the default way to begin using OMQ.
+### Team Runtime
 
 ```bash
 omq team 3:executor "fix the failing tests with verification"
@@ -132,28 +146,6 @@ omq team status <team-name>
 omq team resume <team-name>
 omq team shutdown <team-name>
 ```
-
-### Setup, doctor, and HUD
-
-These are operator/support surfaces:
-- `omq setup` installs prompts, skills, config, and AGENTS scaffolding
-- `omq doctor` verifies the install when something seems wrong
-- `omq hud --watch` is a monitoring/status surface, not the primary user workflow
-
-### Explore and sparkshell
-
-- `omq explore --prompt "..."` is for read-only repository lookup
-- `omq sparkshell <command>` is for shell-native inspection and bounded verification
-
-Examples:
-
-```bash
-omq explore --prompt "find where team state is written"
-omq sparkshell git status
-omq sparkshell --tmux-pane %12 --tail-lines 400
-```
-
-### Platform notes for team mode
 
 `omq team` needs a tmux-compatible backend:
 
@@ -166,7 +158,26 @@ omq sparkshell --tmux-pane %12 --tail-lines 400
 | Windows | `winget install psmux` |
 | Windows (WSL2) | `sudo apt install tmux` |
 
-## Known issues
+### Setup, Doctor, and HUD
+
+- `omq setup` installs prompts, skills, config, AGENTS scaffolding, and MCP servers
+- `omq doctor` verifies install health (12 checks)
+- `omq hud --watch` is a monitoring/status surface
+
+### Explore and Sparkshell
+
+```bash
+omq explore --prompt "find where team state is written"
+omq sparkshell git status
+omq sparkshell --tmux-pane %12 --tail-lines 400
+```
+
+- `omq explore` — default read-only repository lookup (may adaptively use sparkshell backend)
+- `omq sparkshell` — shell-native inspection and bounded verification
+
+---
+
+## Known Issues
 
 ### Intel Mac: high `syspolicyd` / `trustd` CPU during startup
 
@@ -177,16 +188,40 @@ If this happens, try:
 - adding your terminal app to the Developer Tools allowlist in macOS Security settings
 - using lower concurrency (for example, avoid `--madmax`)
 
+---
+
+## Project Stats
+
+| Metric | Count |
+|--------|-------|
+| TypeScript source files | 200 |
+| TypeScript source lines | 115,000+ |
+| Test files | 204 |
+| Agent role prompts | 34 |
+| Skills | 39 |
+| Hook presets | 5 |
+| MCP servers | 5 |
+| Rust crates | 5 |
+| CLI commands | 24 |
+| Documentation languages | 12 |
+
+---
+
 ## Documentation
 
 - [Getting Started](./docs/getting-started.html)
-- [Demo guide](./DEMO.md)
-- [Agent catalog](./docs/agents.html)
-- [Skills reference](./docs/skills.html)
+- [Hooks Architecture](./docs/hooks-architecture.md) — 5-tier hook model, plugin system, presets
+- [Edit Tags](./docs/edit-tags.md) — OmQ Edit Tags for change traceability
+- [MCP Lifecycle](./docs/mcp-lifecycle.md) — on-demand MCP server management
+- [Demo Guide](./DEMO.md)
+- [Agent Catalog](./docs/agents.html)
+- [Skills Reference](./docs/skills.html)
 - [Integrations](./docs/integrations.html)
-- [OpenClaw / notification gateway guide](./docs/openclaw-integration.md)
+- [OpenClaw / Notification Gateway Guide](./docs/openclaw-integration.md)
 - [Contributing](./CONTRIBUTING.md)
 - [Changelog](./CHANGELOG.md)
+
+---
 
 ## Languages
 
@@ -204,6 +239,8 @@ If this happens, try:
 - [Français](./README.fr.md)
 - [Italiano](./README.it.md)
 
+---
+
 ## Contributors
 
 Thank you to everyone who has contributed to oh-my-qwencode.
@@ -211,6 +248,8 @@ Thank you to everyone who has contributed to oh-my-qwencode.
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=chrisxue90/oh-my-qwencode&type=date&legend=top-left)](https://www.star-history.com/#chrisxue90/oh-my-qwencode&type=date&legend=top-left)
+
+---
 
 ## License
 
