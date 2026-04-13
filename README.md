@@ -6,12 +6,9 @@
   <em>Multi-agent orchestration layer for Qwen Code — prompts, skills, safety gates, tmux team runtime, and durable state.</em>
 </p>
 
-[![npm version](https://img.shields.io/npm/v/oh-my-qwencode)](https://www.npmjs.com/package/oh-my-qwencode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
-[![Discord](https://img.shields.io/discord/1452487457085063218?color=5865F2&logo=discord&logoColor=white&label=Discord)](https://discord.gg/PUwSMR9XNk)
 
-**Website:** https://chrisxue90.github.io/oh-my-qwencode-website/
 **Docs:** [Getting Started](./docs/getting-started.html) · [Agents](./docs/agents.html) · [Skills](./docs/skills.html) · [Hooks Architecture](./docs/hooks-architecture.md) · [Integrations](./docs/integrations.html) · [Demo](./DEMO.md) · [OpenClaw guide](./docs/openclaw-integration.md)
 
 ---
@@ -45,8 +42,24 @@ If you want plain Qwen Code with no extra workflow layer, you probably do not ne
 ### Install and Run
 
 ```bash
-npm install -g @openai/qwen oh-my-qwencode
+# Clone the repository
+git clone https://github.com/Zukitata03/oh-my-qwencode-v2.git
+cd oh-my-qwencode-v2
+
+# Install dependencies and build
+npm install
+npm run build
+
+# Link the CLI globally
+npm link
+
+# Run setup to install prompts, skills, config, and AGENTS scaffolding
 omq setup
+```
+
+Then launch:
+
+```bash
 omq --madmax
 ```
 
@@ -244,10 +257,6 @@ If this happens, try:
 ## Contributors
 
 Thank you to everyone who has contributed to oh-my-qwencode.
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=chrisxue90/oh-my-qwencode&type=date&legend=top-left)](https://www.star-history.com/#chrisxue90/oh-my-qwencode&type=date&legend=top-left)
 
 ---
 
