@@ -55,6 +55,11 @@ export const KEYWORD_TRIGGER_DEFINITIONS: readonly KeywordTriggerDefinition[] = 
   { keyword: 'code-review', skill: 'code-review', priority: 6, guidance: 'Activate code-review workflow' },
   { keyword: 'review code', skill: 'code-review', priority: 6, guidance: 'Activate code-review workflow' },
   { keyword: 'security review', skill: 'security-review', priority: 6, guidance: 'Activate security-review workflow' },
+
+  { keyword: 'intent gate', skill: 'intent-gate', priority: 7, guidance: 'Run pre-execution intent analysis before work begins' },
+  { keyword: 'check intent', skill: 'intent-gate', priority: 7, guidance: 'Run pre-execution intent analysis before work begins' },
+  { keyword: 'comment check', skill: 'comment-checker', priority: 6, guidance: 'Validate comment quality against senior-engine standards' },
+  { keyword: 'init-deep', skill: 'init-deep', priority: 5, guidance: 'Generate hierarchical AGENTS.md files for scoped context injection' },
 ] as const;
 
 export function compareKeywordMatches(a: { priority: number; keyword: string }, b: { priority: number; keyword: string }): number {

@@ -1,0 +1,40 @@
+// Hook Preset: Safety
+// Enables safety gates for destructive operations and code quality.
+// Activate by saying "activate safety preset" or adding to config.
+
+{
+  "name": "safety",
+  "description": "Guard rails for destructive operations, file protection, and code quality",
+  "intent_gate": {
+    "enabled": true,
+    "block_on_destructive": true
+  },
+  "comment_checker": {
+    "enabled": true,
+    "standards": "skills/comment-checker/SKILL.md"
+  },
+  "pre_write_diagnostics": {
+    "enabled": true,
+    "action": "run_lint",
+    "fail_on_error": false
+  },
+  "post_write_verification": {
+    "enabled": true,
+    "action": "syntax_check"
+  },
+  "destructive_op_guard": {
+    "enabled": true,
+    "patterns": ["rm -rf", "DROP TABLE", "git reset --hard", "force push"],
+    "require_confirmation": true
+  },
+  "write_existing_file_guard": {
+    "enabled": true,
+    "protected_files": [".env*", "package-lock.json", "yarn.lock", "pnpm-lock.yaml"],
+    "warn_on": ["config files", "lock files", "secrets"]
+  },
+  "security_scan": {
+    "enabled": true,
+    "triggers": ["auth", "password", "token", "secret", "SQL", "query"],
+    "checklist": "injection, auth bypass, data exposure, crypto"
+  }
+}

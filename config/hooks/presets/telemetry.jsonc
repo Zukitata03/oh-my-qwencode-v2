@@ -1,0 +1,26 @@
+// Hook Preset: Telemetry
+// Enables logging, tracing, and metrics collection for session analysis.
+// Disabled by default — enable for debugging or performance investigation.
+
+{
+  "name": "telemetry",
+  "description": "Logging, tracing, and metrics collection for session analysis",
+  "keyword_detector": {
+    "enabled": true,
+    "detect_patterns": ["TODO", "FIXME", "HACK", "BUG", "XXX"]
+  },
+  "context_window_monitor": {
+    "enabled": true,
+    "threshold_percent": 80,
+    "action": "trigger_compaction"
+  },
+  "state_persist": {
+    "enabled": true,
+    "write_on": ["tool_call", "tool_result", "todo_change", "error", "heartbeat_30s"]
+  },
+  "session_recovery": {
+    "enabled": true,
+    "max_retries": 4,
+    "backoff_base_ms": 5000
+  }
+}

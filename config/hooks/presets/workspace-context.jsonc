@@ -1,0 +1,21 @@
+// Hook Preset: Workspace Context
+// Injects project-level context (AGENTS.md, README, conventions) into every session.
+
+{
+  "name": "workspace-context",
+  "description": "Inject project-level context (AGENTS.md, README, conventions) into sessions",
+  "context_injector": {
+    "enabled": true,
+    "inject_agents_md": true,
+    "inject_readme": true,
+    "inject_project_memory": false,
+    "inject_rules": true
+  },
+  "rules_injector": {
+    "enabled": true,
+    "inject_project_rules": true
+  },
+  "category_skill_reminder": {
+    "enabled": false
+  }
+}

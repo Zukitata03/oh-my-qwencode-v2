@@ -294,6 +294,27 @@
       "status": "internal",
       "core": false,
       "internalRequired": true
+    },
+    {
+      "name": "intent-gate",
+      "category": "safety",
+      "status": "active",
+      "core": false,
+      "internalRequired": false
+    },
+    {
+      "name": "comment-checker",
+      "category": "quality",
+      "status": "active",
+      "core": false,
+      "internalRequired": false
+    },
+    {
+      "name": "init-deep",
+      "category": "utility",
+      "status": "active",
+      "core": false,
+      "internalRequired": false
     }
   ],
   "agents": [
@@ -455,6 +476,11 @@
     {
       "name": "vision",
       "category": "coordination",
+      "status": "active"
+    },
+    {
+      "name": "librarian",
+      "category": "domain",
       "status": "active"
     }
   ]

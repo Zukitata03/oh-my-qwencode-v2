@@ -44,6 +44,9 @@ Keep runtime marker contracts stable and non-destructive when overlays are appli
 </operating_principles>
 
 ## Working agreements
+- Run `$intent-gate` before high-risk or destructive operations — classify intent, scope blast radius, assess risk.
+- After every code write, apply the comment checker: explain WHY not WHAT, no AI fluff, no zombie code, track TODOs.
+- Wrap significant edits with OmQ Edit Tags (`[OMQ:EDIT start]...task/agent/reason...[OMQ:EDIT end]`) for traceability.
 - Write a cleanup plan before modifying code for cleanup/refactor/deslop work.
 - Lock existing behavior with regression tests before cleanup edits when behavior is not already protected.
 - Prefer deletion over addition.
@@ -181,6 +184,7 @@ Key roles:
 - `debugger` — root-cause analysis
 - `executor` — implementation and refactoring
 - `verifier` — completion evidence and validation
+- `librarian` — documentation discovery, API reference, version-aware research (official docs first, cite everything)
 
 Specialists remain available through `/prompts:*` when the task clearly benefits from them.
 </agent_catalog>
@@ -212,6 +216,9 @@ The `deep-interview` skill is the Socratic deep interview workflow and includes 
 | "review code", "code review", "code-review" | `$code-review` | Read `~/.qwen/skills/code-review/SKILL.md`, run code review |
 | "security review" | `$security-review` | Read `~/.qwen/skills/security-review/SKILL.md`, run security audit |
 | "web-clone", "clone site", "clone website", "copy webpage" | `$web-clone` | Read `~/.qwen/skills/web-clone/SKILL.md`, start website cloning pipeline |
+| "intent gate", "check intent" | `$intent-gate` | Read `~/.qwen/skills/intent-gate/SKILL.md`, run pre-execution intent analysis |
+| "comment check" | `$comment-checker` | Read `~/.qwen/skills/comment-checker/SKILL.md`, validate comment quality |
+| "init-deep" | `$init-deep` | Read `~/.qwen/skills/init-deep/SKILL.md`, generate hierarchical AGENTS.md files |
 
 Detection rules:
 - Keywords are case-insensitive and match anywhere in the user message.
@@ -231,7 +238,10 @@ Ralph / Ralplan execution gate:
 <skills>
 Skills are workflow commands.
 Core workflows include `autopilot`, `ralph`, `ultrawork`, `visual-verdict`, `web-clone`, `ecomode`, `team`, `swarm`, `ultraqa`, `plan`, `deep-interview` (Socratic deep interview, Ouroboros-inspired), and `ralplan`.
-Utilities include `cancel`, `note`, `doctor`, `help`, and `trace`.
+Safety and quality skills include `intent-gate` (pre-execution intent analysis), `comment-checker` (comment quality guard), and `code-review`.
+Utilities include `cancel`, `note`, `doctor`, `help`, `trace`, and `init-deep` (hierarchical AGENTS.md generation).
+
+Hook presets group related behaviors: `safety` (destructive op guards + comment quality), `review` (pre-review gates + test verification), `memory` (project memory + notepad), `telemetry` (logging + recovery), `workspace-context` (AGENTS.md + rules injection).
 </skills>
 
 ---
@@ -344,6 +354,13 @@ Before concluding, confirm: no pending work, features working, tests passing, ze
 
 Ralph planning gate:
 If ralph is active, verify PRD + test spec artifacts exist before implementation work.
+
+Session recovery protocol:
+- On session crash or disconnect: read `.omq/state/` to resume from last saved state.
+- On context window overflow: compact completed phases to 2-line summaries, remove raw tool outputs, keep conclusions.
+- On API failure: retry with exponential backoff (0s → 5s → 15s → 30s then escalate).
+- On retry exhaustion: save full state to `.omq/state/`, report errors with timestamps, suggest actions.
+- Never lose work — every completed step is persisted. Never fail silently — every retry is logged.
 </execution_protocols>
 
 <cancellation>
@@ -361,6 +378,7 @@ OMQ persists runtime state under `.omq/`:
 - `.omq/project-memory.json` — cross-session memory
 - `.omq/plans/` — plans
 - `.omq/logs/` — logs
+- `.omq/state/intent-gate-*.json` — intent analysis audit trail
 
 Available MCP groups include state/memory tools, code-intel tools, and trace tools.
 
@@ -369,6 +387,14 @@ Mode lifecycle requirements:
 - Update state on phase or iteration change.
 - Mark inactive with `completed_at` on completion.
 - Clear state on cancel/abort cleanup.
+
+Hook presets are configured under `config/hooks/presets/` and control which guard/transform/continuation behaviors are active. The `safety` preset is recommended for all sessions.
+
+MCP server lifecycle:
+- Core servers (state, memory) are always active.
+- Diagnostic servers (code_intel, trace) auto-terminate after idle timeouts to free context budget.
+- Team server persists until session end.
+- Use `state_read`/`state_write` MCP tools for skill state persistence.
 </state_management>
 
 ---

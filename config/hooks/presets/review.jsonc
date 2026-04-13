@@ -1,0 +1,27 @@
+// Hook Preset: Review
+// Enables pre-review gates and code quality checks before claiming completion.
+
+{
+  "name": "review",
+  "description": "Pre-review gates and code quality checks before claiming task complete",
+  "intent_gate": {
+    "enabled": true,
+    "block_on_destructive": false
+  },
+  "comment_checker": {
+    "enabled": true,
+    "standards": "skills/comment-checker/SKILL.md"
+  },
+  "pre_review_gate": {
+    "enabled": true,
+    "ensure_review_not_skipped": true
+  },
+  "pre_test_gate": {
+    "enabled": true,
+    "ensure_tests_exist_and_pass": true
+  },
+  "api_change_guard": {
+    "enabled": true,
+    "flag_breaking_changes": true
+  }
+}

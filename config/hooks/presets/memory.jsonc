@@ -1,0 +1,21 @@
+// Hook Preset: Memory
+// Enables project memory tracking and notepad persistence across sessions.
+
+{
+  "name": "memory",
+  "description": "Project memory tracking and notepad persistence across sessions",
+  "context_injector": {
+    "enabled": true,
+    "inject_agents_md": true,
+    "inject_readme": true,
+    "inject_project_memory": true
+  },
+  "rules_injector": {
+    "enabled": true,
+    "inject_project_rules": true
+  },
+  "category_skill_reminder": {
+    "enabled": true,
+    "remind_active_skills": true
+  }
+}
