@@ -1,4 +1,7 @@
 # oh-my-qwencode (OMQ)
+UPDATE April 16: Alibaba nuked the free 1k requests, this only my fun personal project, but well i have fun time using Qwen. Continue using this by purchase Coding plan from Alibaba, Fireworks, ...
+QWEN (3.6Plus the lastest) DOES NOT SUPPORT PROMPT/TOKEN CACHING. If you seriously code, then it not really suitable.
+
 
 > A port of [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) adapted for Qwen Code.
 
